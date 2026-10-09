@@ -159,10 +159,10 @@ section { padding-block: clamp(4rem, 9vw, 7rem); }
 .jcard-foot { grid-column: 1 / -1; border-top: 1.5px solid var(--bone); padding: .8rem clamp(1.25rem, 3vw, 2rem); display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font: 400 1.15rem/1.2 var(--f-crt); color: var(--dim); letter-spacing: .06em; text-transform: uppercase; }
 
 /* About */
-.about .wrap { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
-.members { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1rem, 2.5vw, 1.75rem); align-items: start; }
-.members .member:nth-child(2) { margin-top: 3rem; }  /* staggered, like two snapshots pinned to a wall */
+.about .wrap { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.3fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
+.members { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2.5rem; max-width: 22rem; }
 .member { margin: 0; min-width: 0; }
+.about .wrap > div:last-child { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 7rem); }  /* bio stays beside the photos as they scroll past */
 /* Photo filter: duotone in one of the two cover colors, with CRT scanlines and a slight chroma split */
 .photo { position: relative; display: block; aspect-ratio: 4 / 5; max-width: 100%; overflow: hidden; border: 1px solid var(--line); box-shadow: 12px 12px 0 -1px rgba(90,20,235,.4); --duo: url(#duo-violet); }
 .photo.pink { --duo: url(#duo-pink); box-shadow: 12px 12px 0 -1px rgba(255,45,127,.35); }
@@ -211,6 +211,7 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
 /* ---------- Narrow screens ---------- */
 @media (max-width: 52rem) {
   .hero .wrap, .about .wrap { grid-template-columns: minmax(0, 1fr); }
+  .about .wrap > div:last-child { position: static; }
   .hero .cover { order: -1; max-width: 30rem; }
   .jcard { grid-template-columns: minmax(0, 1fr); }
   .side + .side { border-left: 0; border-top: 1.5px dashed var(--line); }
@@ -331,11 +332,11 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
       <div class="members">
         <figure class="member">
           <span class="photo violet"><img src="assets/david-miller.jpg" alt="David Miller in a fedora and round sunglasses, taking a selfie in a dim pool hall" width="900" height="1125" loading="lazy"></span>
-          <figcaption><b>David Miller</b><span>Vocals · Drums · Production</span></figcaption>
+          <figcaption><b>David Miller</b></figcaption>
         </figure>
         <figure class="member">
           <span class="photo pink"><img src="assets/jarrod-feintuch.jpg" alt="Jarrod Feintuch in a black fedora, tinted sunglasses and a floral shirt" width="323" height="404" loading="lazy"></span>
-          <figcaption><b>Jarrod Feintuch</b><span>Guitar · Songwriting</span></figcaption>
+          <figcaption><b>Jarrod Feintuch</b></figcaption>
         </figure>
       </div>
       <div>
