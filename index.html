@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lilac Triggers — Slow Blink</title>
+<meta name="description" content="Slow Blink, the debut album from Lilac Triggers. New wave and post-punk after dark.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=VT323&family=Mr+Dafoe&display=swap">
+<style>
+/* Layout: a late-night CRT broadcast. Cover-led hero, then cassette J-card tracklist, then a sign-up "transmission". */
+:root {
+  --ink: #0c080b;        /* warm black, biased toward the magenta */
+  --ink-2: #171016;
+  --bone: #efe6dc;       /* the paper white of the wordmark */
+  --dim: #8d8189;
+  --magenta: #ff2d7f;    /* the pink cover wash */
+  --red: #ec3a2c;        /* the brush-script LILAC */
+  --lilac: #b8a2dc;
+  --line: rgba(239, 230, 220, .14);
+
+  --f-display: "Archivo", "Arial Black", Impact, sans-serif;
+  --f-body: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --f-crt: "VT323", "Courier New", monospace;
+  --f-script: "Mr Dafoe", "Brush Script MT", cursive;
+
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--bone);
+  font: 400 1.0625rem/1.6 var(--f-body);
+  font-stretch: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--magenta); outline-offset: 3px; }
+
+/* Scanlines over the whole page, like the cover art */
+body::after {
+  content: "";
+  position: fixed; inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0 2px, rgba(0,0,0,.22) 2px 3px);
+  mix-blend-mode: multiply;
+  z-index: 50;
+}
+
+.wrap { width: 100%; max-width: 72rem; margin-inline: auto; padding-inline: max(16px, 4vw); }
+
+/* ---------- Header ---------- */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 40;
+  background: color-mix(in srgb, var(--ink) 86%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: .8rem; }
+.mark { text-decoration: none; display: flex; align-items: baseline; gap: .4rem; line-height: 1; }
+.mark .l { font: 400 2rem/1 var(--f-script); color: var(--red); }
+.mark .t { font: 900 .8rem/1 var(--f-display); font-stretch: 125%; letter-spacing: .12em; }
+.top nav { display: flex; gap: 1.25rem; font: 400 1.25rem/1 var(--f-crt); letter-spacing: .06em; text-transform: uppercase; }
+.top nav a { text-decoration: none; color: var(--dim); }
+.top nav a:hover { color: var(--bone); }
+
+/* ---------- Hero ---------- */
+.hero { padding-block: clamp(2.5rem, 7vw, 6rem) clamp(3rem, 7vw, 5rem); position: relative; overflow: hidden; }
+.hero::before { /* magenta bloom behind the cover */
+  content: ""; position: absolute; width: 60rem; height: 60rem; right: -20rem; top: -18rem;
+  background: radial-gradient(closest-side, rgba(255,45,127,.22), transparent);
+  pointer-events: none;
+}
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; position: relative; }
+
+.eyebrow { font: 400 1.35rem/1 var(--f-crt); color: var(--lilac); letter-spacing: .08em; text-transform: uppercase; margin: 0 0 1.1rem; display: flex; align-items: center; gap: .6rem; }
+.rec { width: .6rem; height: .6rem; border-radius: 50%; background: var(--red); box-shadow: 0 0 10px var(--red); animation: rec 1.6s steps(1) infinite; }
+@keyframes rec { 50% { opacity: .15; } }
+
+.title {
+  margin: 0;
+  font-family: var(--f-display);
+  font-weight: 900;
+  font-stretch: 125%;
+  text-transform: uppercase;
+  line-height: .86;
+  letter-spacing: -.02em;
+  font-size: clamp(3.4rem, 10.5vw, 8.5rem);
+}
+.title span { display: block; }
+.title .blink { position: relative; display: inline-block; color: var(--magenta); text-shadow: 3px 0 0 rgba(236,58,44,.7), -3px 0 0 rgba(184,162,220,.45); }
+/* The eyelids: two bars that close over BLINK, slowly */
+.title .blink::before, .title .blink::after {
+  content: ""; position: absolute; left: -2%; right: -2%; height: 51%;
+  background: var(--ink); transform: scaleY(0);
+  animation: lid 7s cubic-bezier(.7,0,.3,1) infinite;
+}
+.title .blink::before { top: 0; transform-origin: top; }
+.title .blink::after { bottom: 0; transform-origin: bottom; }
+@keyframes lid { 0%, 70%, 100% { transform: scaleY(0); } 80%, 86% { transform: scaleY(1); } }
+
+.lede { max-width: 34rem; margin: 1.6rem 0 0; color: var(--bone); opacity: .85; font-size: 1.15rem; text-wrap: pretty; }
+.status { margin: 1.4rem 0 0; font: 400 1.5rem/1.2 var(--f-crt); color: var(--dim); letter-spacing: .04em; }
+.status b { color: var(--bone); font-weight: 400; }
+
+.ctas { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; }
+.btn {
+  display: inline-flex; align-items: center; gap: .55rem;
+  padding: .9rem 1.35rem;
+  font: 800 .85rem/1 var(--f-display); font-stretch: 112%; letter-spacing: .14em; text-transform: uppercase;
+  text-decoration: none; color: var(--bone);
+  border: 1.5px solid var(--bone);
+  transition: background .2s, color .2s, transform .2s;
+}
+.btn:hover { background: var(--bone); color: var(--ink); }
+.btn.primary { background: var(--magenta); border-color: var(--magenta); color: var(--ink); }
+.btn.primary:hover { background: var(--bone); border-color: var(--bone); }
+
+/* Cover, mounted like a slightly mis-tracked VHS frame */
+.cover { position: relative; margin: 0; }
+.cover .frame { position: relative; aspect-ratio: 412 / 372; max-width: 100%; transform: rotate(-1.5deg); box-shadow: 0 30px 80px -20px rgba(255,45,127,.35), 0 0 0 1px var(--line); }
+.cover img { width: 100%; height: 100%; object-fit: cover; }
+.cover .ghost { position: absolute; inset: 0; mix-blend-mode: screen; opacity: 0; transform: translateX(0); }
+.cover:hover .ghost { animation: track .9s steps(4) 1; }
+@keyframes track { 0% { opacity: .55; transform: translateX(6px); } 50% { opacity: .35; transform: translate(-4px, 2px); } 100% { opacity: 0; transform: none; } }
+.cover figcaption { margin-top: 1.1rem; font: 400 1.15rem/1.2 var(--f-crt); color: var(--dim); display: flex; justify-content: space-between; gap: 1rem; letter-spacing: .04em; }
+
+/* ---------- Ticker ---------- */
+.ticker { border-block: 1px solid var(--line); overflow: hidden; background: var(--ink-2); }
+.ticker .row { display: flex; width: max-content; animation: scroll 38s linear infinite; }
+.ticker p { margin: 0; padding: .7rem 0; white-space: nowrap; font: 400 1.5rem/1 var(--f-crt); letter-spacing: .08em; text-transform: uppercase; color: var(--dim); }
+.ticker p i { font-style: normal; color: var(--magenta); padding-inline: 1.4rem; }
+@keyframes scroll { to { transform: translateX(-50%); } }
+
+/* ---------- Sections ---------- */
+section { padding-block: clamp(4rem, 9vw, 7rem); }
+.h2 { margin: 0 0 2.5rem; font: 900 clamp(2rem, 5vw, 3.4rem)/.95 var(--f-display); font-stretch: 125%; text-transform: uppercase; letter-spacing: -.01em; text-wrap: balance; }
+.h2 em { font: 400 1.25em/1 var(--f-script); color: var(--red); text-transform: none; letter-spacing: 0; margin-right: .1em; }
+
+/* Tracklist as a cassette J-card */
+.jcard { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1.5px solid var(--bone); }
+.side { padding: clamp(1.25rem, 3vw, 2rem); min-width: 0; }
+.side + .side { border-left: 1.5px dashed var(--line); }
+.side h3 { margin: 0 0 1.2rem; display: flex; justify-content: space-between; align-items: baseline; font: 400 1.5rem/1 var(--f-crt); letter-spacing: .08em; color: var(--lilac); text-transform: uppercase; }
+.side h3 span { color: var(--dim); font-size: 1.1rem; }
+.side ol { list-style: none; margin: 0; padding: 0; display: grid; }
+.side li { display: grid; grid-template-columns: 2.2rem minmax(0, 1fr) auto; align-items: baseline; gap: .75rem; padding-block: .75rem; border-bottom: 1px solid var(--line); }
+.side li:last-child { border-bottom: 0; }
+.side .n { font: 400 1.2rem/1 var(--f-crt); color: var(--magenta); }
+.side .name { font-weight: 700; font-stretch: 112%; letter-spacing: .01em; }
+.side .len { font: 400 1.2rem/1 var(--f-crt); color: var(--dim); font-variant-numeric: tabular-nums; }
+.jcard-foot { grid-column: 1 / -1; border-top: 1.5px solid var(--bone); padding: .8rem clamp(1.25rem, 3vw, 2rem); display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font: 400 1.15rem/1.2 var(--f-crt); color: var(--dim); letter-spacing: .06em; text-transform: uppercase; }
+
+/* About */
+.about .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
+.about img { filter: grayscale(.2) contrast(1.05); border: 1px solid var(--line); }
+.about p { margin: 0 0 1.1rem; max-width: 36rem; color: rgba(239,230,220,.86); }
+.about p:first-of-type { font-size: 1.3rem; line-height: 1.45; color: var(--bone); }
+.for-fans { margin-top: 1.8rem; font: 400 1.3rem/1.4 var(--f-crt); color: var(--lilac); letter-spacing: .04em; }
+
+/* Shows */
+.shows { background: var(--ink-2); border-block: 1px solid var(--line); }
+.empty { border: 1.5px dashed var(--line); padding: clamp(1.5rem, 4vw, 2.5rem); display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+.empty p { margin: 0; font: 400 1.6rem/1.25 var(--f-crt); letter-spacing: .04em; max-width: 34rem; }
+.empty p span { color: var(--dim); }
+
+/* Sign-up */
+.signup .wrap { max-width: 46rem; text-align: left; }
+.signup p.sub { margin: -1.2rem 0 2rem; color: rgba(239,230,220,.8); max-width: 34rem; }
+.form { display: flex; gap: .75rem; flex-wrap: wrap; }
+.form label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.form input {
+  flex: 1 1 16rem; min-width: 0;
+  padding: .95rem 1rem; background: transparent; color: var(--bone);
+  border: 1.5px solid var(--bone); border-radius: 0;
+  font: 400 1.4rem/1 var(--f-crt); letter-spacing: .04em;
+}
+.form input::placeholder { color: var(--dim); }
+.form button { cursor: pointer; }
+.form-msg { margin: 1rem 0 0; font: 400 1.35rem/1.2 var(--f-crt); color: var(--magenta); letter-spacing: .04em; min-height: 1.4em; }
+
+/* Footer */
+footer { border-top: 1px solid var(--line); padding-block: 2.5rem 3rem; }
+footer .wrap { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+.socials { display: flex; gap: 1.25rem; flex-wrap: wrap; font: 400 1.3rem/1 var(--f-crt); letter-spacing: .06em; text-transform: uppercase; }
+.socials a { text-decoration: none; color: var(--dim); }
+.socials a:hover { color: var(--magenta); }
+.fine { font: 400 1.1rem/1 var(--f-crt); color: var(--dim); letter-spacing: .04em; }
+
+/* ---------- Narrow screens ---------- */
+@media (max-width: 52rem) {
+  .hero .wrap, .about .wrap { grid-template-columns: minmax(0, 1fr); }
+  .hero .cover { order: -1; max-width: 30rem; }
+  .jcard { grid-template-columns: minmax(0, 1fr); }
+  .side + .side { border-left: 0; border-top: 1.5px dashed var(--line); }
+}
+@media (max-width: 30rem) {
+  .top nav { gap: .9rem; font-size: 1.1rem; }
+  .top nav a.hide-sm { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="#top" aria-label="Lilac Triggers home"><span class="l">Lilac</span><span class="t">TRIGGERS</span></a>
+    <nav aria-label="Main">
+      <a href="#album">Album</a>
+      <a href="#about" class="hide-sm">Band</a>
+      <a href="#shows" class="hide-sm">Shows</a>
+      <a href="#list">Join</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow"><span class="rec" aria-hidden="true"></span>New album · Coming soon</p>
+        <h1 class="title"><span>Slow</span><span class="blink">Blink</span></h1>
+        <p class="lede">The debut album from Lilac Triggers. Cold synths, wiry guitars and a voice that sounds like it's calling from the other side of a long night.</p>
+        <p class="status">Release date: <b>[TBA]</b></p>
+        <div class="ctas">
+          <!-- Swap these # links for your real pre-save / store URLs -->
+          <a class="btn primary" href="#" target="_blank" rel="noopener">Pre-save on Spotify</a>
+          <a class="btn" href="#" target="_blank" rel="noopener">Apple Music</a>
+          <a class="btn" href="#" target="_blank" rel="noopener">Bandcamp</a>
+        </div>
+      </div>
+
+      <figure class="cover">
+        <div class="frame">
+          <img src="assets/cover-pink.jpg" alt="Slow Blink album cover: a face washed in hot pink with eyes closed, under the Lilac Triggers wordmark" width="412" height="372">
+          <img class="ghost" src="assets/cover-mono.jpg" alt="" aria-hidden="true">
+        </div>
+        <figcaption><span>SLOW BLINK · LP</span><span>PLAY ▶ 00:00</span></figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="row">
+      <p>Slow Blink<i>✕</i>Lilac Triggers<i>✕</i>New wave after dark<i>✕</i>Debut LP<i>✕</i>Coming soon<i>✕</i>Slow Blink<i>✕</i>Lilac Triggers<i>✕</i>New wave after dark<i>✕</i>Debut LP<i>✕</i>Coming soon<i>✕</i></p>
+      <p>Slow Blink<i>✕</i>Lilac Triggers<i>✕</i>New wave after dark<i>✕</i>Debut LP<i>✕</i>Coming soon<i>✕</i>Slow Blink<i>✕</i>Lilac Triggers<i>✕</i>New wave after dark<i>✕</i>Debut LP<i>✕</i>Coming soon<i>✕</i></p>
+    </div>
+  </div>
+
+  <!-- TRACKLIST (placeholder titles: replace with the real ones) -->
+  <section id="album">
+    <div class="wrap">
+      <h2 class="h2"><em>the</em>Tracklist</h2>
+      <div class="jcard">
+        <div class="side">
+          <h3>Side A <span>Dusk</span></h3>
+          <ol>
+            <li><span class="n">A1</span><span class="name">Slow Blink</span><span class="len">4:12</span></li>
+            <li><span class="n">A2</span><span class="name">Static Bloom</span><span class="len">3:48</span></li>
+            <li><span class="n">A3</span><span class="name">Mercury Hours</span><span class="len">4:31</span></li>
+            <li><span class="n">A4</span><span class="name">Velvet Alarm</span><span class="len">3:57</span></li>
+            <li><span class="n">A5</span><span class="name">Glasshouse</span><span class="len">5:02</span></li>
+          </ol>
+        </div>
+        <div class="side">
+          <h3>Side B <span>Dawn</span></h3>
+          <ol>
+            <li><span class="n">B1</span><span class="name">Lilac Trigger</span><span class="len">3:39</span></li>
+            <li><span class="n">B2</span><span class="name">Cold Room</span><span class="len">4:20</span></li>
+            <li><span class="n">B3</span><span class="name">Afterimage</span><span class="len">4:05</span></li>
+            <li><span class="n">B4</span><span class="name">Rewind the Night</span><span class="len">3:51</span></li>
+            <li><span class="n">B5</span><span class="name">Eyes Shut, Lights On</span><span class="len">6:14</span></li>
+          </ol>
+        </div>
+        <div class="jcard-foot"><span>Type II · Chrome · Dolby NR</span><span>Total 43:39</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="about">
+    <div class="wrap">
+      <img src="assets/cover-mono.jpg" alt="Alternate Lilac Triggers artwork: a pale face in blue-white scanlines on black" width="412" height="372" loading="lazy">
+      <div>
+        <h2 class="h2"><em>the</em>Band</h2>
+        <p>Lilac Triggers make music for the hour after the party, when the lights are still on and nobody wants to go home.</p>
+        <p>Built on drum machines, chorus-drenched guitar and bass lines that lead from the front, the band pulls from the new wave and post-punk records that soundtracked rainy bus windows and bedroom walls. The songs are dark, but you can still dance to them.</p>
+        <p><i>Slow Blink</i> is the first full-length record: ten songs about the moment you close your eyes and something changes.</p>
+        <p class="for-fans">For fans of: The Cure · Cocteau Twins · Depeche Mode · Molchat Doma · Boy Harsher</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOWS -->
+  <section id="shows" class="shows">
+    <div class="wrap">
+      <h2 class="h2"><em>live</em>Shows</h2>
+      <div class="empty">
+        <p>No dates on the board yet.<br><span>Get on the list and you'll hear first.</span></p>
+        <a class="btn" href="#list">Get show alerts</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIGN-UP -->
+  <section id="list" class="signup">
+    <div class="wrap">
+      <h2 class="h2"><em>stay</em>Tuned In</h2>
+      <p class="sub">Release news, early tickets and the occasional transmission from the studio. No spam.</p>
+      <!-- Hook this form up to your email tool (Mailchimp, ConvertKit, etc.) -->
+      <form class="form" id="signup-form" novalidate>
+        <label for="email">Email address</label>
+        <input id="email" name="email" type="email" placeholder="you@nightdrive.fm" autocomplete="email" required>
+        <button class="btn primary" type="submit">Join the list</button>
+      </form>
+      <p class="form-msg" id="form-msg" role="status" aria-live="polite"></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="mark" href="#top" aria-label="Back to top"><span class="l">Lilac</span><span class="t">TRIGGERS</span></a>
+    <nav class="socials" aria-label="Social">
+      <a href="#" target="_blank" rel="noopener">Instagram</a>
+      <a href="#" target="_blank" rel="noopener">TikTok</a>
+      <a href="#" target="_blank" rel="noopener">YouTube</a>
+      <a href="#" target="_blank" rel="noopener">Spotify</a>
+    </nav>
+    <p class="fine">© 2026 Lilac Triggers</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('signup-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var input = document.getElementById('email');
+    var msg = document.getElementById('form-msg');
+    var ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim());
+    if (!ok) { msg.textContent = '> Enter a valid email address, like name@example.com'; input.focus(); return; }
+    msg.textContent = '> Signal received. You\'re on the list.';
+    input.value = '';
+  });
+</script>
+</body>
+</html>
