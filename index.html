@@ -18,6 +18,7 @@
   --magenta: #ff2d7f;    /* the pink cover wash */
   --red: #ec3a2c;        /* the brush-script LILAC */
   --lilac: #b8a2dc;
+  --violet: #5a14eb;     /* the LILAC wordmark on the violet cover */
   --line: rgba(239, 230, 220, .14);
 
   --f-display: "Archivo", "Arial Black", Impact, sans-serif;
@@ -72,7 +73,7 @@ body::after {
 .hero { padding-block: clamp(2.5rem, 7vw, 6rem) clamp(3rem, 7vw, 5rem); position: relative; overflow: hidden; }
 .hero::before { /* magenta bloom behind the cover */
   content: ""; position: absolute; width: 60rem; height: 60rem; right: -20rem; top: -18rem;
-  background: radial-gradient(closest-side, rgba(255,45,127,.22), transparent);
+  background: radial-gradient(closest-side, rgba(255,45,127,.2), rgba(90,20,235,.08) 60%, transparent);
   pointer-events: none;
 }
 .hero .wrap { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; position: relative; }
@@ -92,7 +93,7 @@ body::after {
   font-size: clamp(3.4rem, 10.5vw, 8.5rem);
 }
 .title span { display: block; }
-.title .blink { position: relative; display: inline-block; color: var(--magenta); text-shadow: 3px 0 0 rgba(236,58,44,.7), -3px 0 0 rgba(184,162,220,.45); }
+.title .blink { position: relative; display: inline-block; color: var(--magenta); text-shadow: 3px 0 0 rgba(236,58,44,.7), -3px 0 0 rgba(90,20,235,.75); }
 /* The eyelids: two bars that close over BLINK, slowly */
 .title .blink::before, .title .blink::after {
   content: ""; position: absolute; left: -2%; right: -2%; height: 51%;
@@ -122,7 +123,7 @@ body::after {
 
 /* Cover, mounted like a slightly mis-tracked VHS frame */
 .cover { position: relative; margin: 0; }
-.cover .frame { position: relative; aspect-ratio: 412 / 372; max-width: 100%; transform: rotate(-1.5deg); box-shadow: 0 30px 80px -20px rgba(255,45,127,.35), 0 0 0 1px var(--line); }
+.cover .frame { position: relative; aspect-ratio: 1 / 1; max-width: 100%; transform: rotate(-1.5deg); box-shadow: 0 30px 80px -20px rgba(255,45,127,.35), -24px -16px 90px -30px rgba(90,20,235,.5), 0 0 0 1px var(--line); }
 .cover img { width: 100%; height: 100%; object-fit: cover; }
 .cover .ghost { position: absolute; inset: 0; mix-blend-mode: screen; opacity: 0; transform: translateX(0); }
 .cover:hover .ghost { animation: track .9s steps(4) 1; }
@@ -242,8 +243,8 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
 
       <figure class="cover">
         <div class="frame">
-          <img src="assets/cover-pink.jpg" alt="Slow Blink album cover: a face washed in hot pink with eyes closed, under the Lilac Triggers wordmark" width="412" height="372">
-          <img class="ghost" src="assets/cover-mono.jpg" alt="" aria-hidden="true">
+          <img src="assets/cover-pink.jpg" alt="Slow Blink album cover: a face in a hot-pink brushstroke with scanlines, under a white Lilac and red Triggers wordmark" width="1200" height="1200">
+          <img class="ghost" src="assets/cover-violet.jpg" alt="" aria-hidden="true">
         </div>
         <figcaption><span>SLOW BLINK · LP</span><span>PLAY ▶ 00:00</span></figcaption>
       </figure>
@@ -290,7 +291,7 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
   <!-- ABOUT -->
   <section id="about" class="about">
     <div class="wrap">
-      <img src="assets/cover-mono.jpg" alt="Alternate Lilac Triggers artwork: a pale face in blue-white scanlines on black" width="412" height="372" loading="lazy">
+      <img src="assets/cover-violet.jpg" alt="Alternate Slow Blink artwork: a pale face in a white scanline brushstroke under a violet Lilac wordmark" width="1200" height="1200" loading="lazy">
       <div>
         <h2 class="h2"><em>the</em>Band</h2>
         <p>Lilac Triggers make music for the hour after the party, when the lights are still on and nobody wants to go home.</p>
