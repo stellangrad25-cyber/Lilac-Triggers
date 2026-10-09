@@ -61,10 +61,13 @@ body::after {
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--line);
 }
-.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: .8rem; }
-.mark { text-decoration: none; display: flex; align-items: baseline; gap: .4rem; line-height: 1; }
-.mark .l { font: 400 2rem/1 var(--f-script); color: var(--red); }
-.mark .t { font: 900 .8rem/1 var(--f-display); font-stretch: 125%; letter-spacing: .12em; }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: .6rem; }
+/* Logo: the brush LILAC cut straight from the album cover, with TRIGGERS tucked under it in red, as on the sleeve */
+.mark { text-decoration: none; display: inline-grid; justify-items: end; line-height: 1; }
+.mark .l { width: 5.6rem; height: auto; }
+.mark .t { margin-top: -.8rem; font: 900 .86rem/1 var(--f-display); font-stretch: 125%; letter-spacing: .02em; color: var(--red); }
+footer .mark .l { width: 6.4rem; }
+footer .mark .t { font-size: 1rem; margin-top: -.9rem; }
 .top nav { display: flex; gap: 1.25rem; font: 400 1.25rem/1 var(--f-crt); letter-spacing: .06em; text-transform: uppercase; }
 .top nav a { text-decoration: none; color: var(--dim); }
 .top nav a:hover { color: var(--bone); }
@@ -213,7 +216,7 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
 
 <header class="top">
   <div class="wrap">
-    <a class="mark" href="#top" aria-label="Lilac Triggers home"><span class="l">Lilac</span><span class="t">TRIGGERS</span></a>
+    <a class="mark" href="#top" aria-label="Lilac Triggers home"><img class="l" src="assets/lilac-wordmark.png" alt="" width="640" height="504"><span class="t" aria-hidden="true">TRIGGERS</span></a>
     <nav aria-label="Main">
       <a href="#album">Album</a>
       <a href="#about" class="hide-sm">Band</a>
@@ -332,7 +335,7 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
 
 <footer>
   <div class="wrap">
-    <a class="mark" href="#top" aria-label="Back to top"><span class="l">Lilac</span><span class="t">TRIGGERS</span></a>
+    <a class="mark" href="#top" aria-label="Back to top"><img class="l" src="assets/lilac-wordmark.png" alt="" width="640" height="504" loading="lazy"><span class="t" aria-hidden="true">TRIGGERS</span></a>
     <nav class="socials" aria-label="Social">
       <a href="#" target="_blank" rel="noopener">Instagram</a>
       <a href="#" target="_blank" rel="noopener">TikTok</a>
