@@ -175,7 +175,6 @@ section { padding-block: clamp(4rem, 9vw, 7rem); }
 .about .wrap { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.3fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
 .members { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2.5rem; max-width: 22rem; }
 .member { margin: 0; min-width: 0; }
-.about .wrap > div:last-child { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 7rem); }  /* bio stays beside the photos as they scroll past */
 /* Photo filter: duotone in one of the two cover colors, with CRT scanlines and a slight chroma split */
 .photo { position: relative; display: block; aspect-ratio: 4 / 5; max-width: 100%; overflow: hidden; border: 1px solid var(--line); box-shadow: 12px 12px 0 -1px rgba(90,20,235,.4); --duo: url(#duo-violet); }
 .photo.pink { --duo: url(#duo-pink); box-shadow: 12px 12px 0 -1px rgba(255,45,127,.35); }
@@ -190,6 +189,12 @@ section { padding-block: clamp(4rem, 9vw, 7rem); }
 .member figcaption b { font-weight: 400; color: var(--bone); }
 .about p { margin: 0 0 1.1rem; max-width: 36rem; color: rgba(239,230,220,.86); }
 .about p:first-of-type { font-size: 1.3rem; line-height: 1.45; color: var(--bone); }
+/* Career highlights, set like liner-note credits */
+.history { margin-block: 2.2rem; padding-block: 1.6rem; border-bottom: 1px dashed var(--line); border-top: 1px dashed var(--line); max-width: 36rem; }
+.history h3 { margin: 0 0 1.1rem; font: 400 1.4rem/1.2 var(--f-crt); letter-spacing: .06em; text-transform: uppercase; color: var(--lilac); }
+.history ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.1rem; }
+.history li { margin: 0; color: rgba(239,230,220,.86); }
+.history li b { display: block; margin-bottom: .2rem; font: 800 .85rem/1.2 var(--f-display); font-stretch: 112%; letter-spacing: .12em; text-transform: uppercase; color: var(--magenta); }
 .for-fans { margin-top: 1.8rem; font: 400 1.3rem/1.4 var(--f-crt); color: var(--lilac); letter-spacing: .04em; }
 
 /* Shows */
@@ -225,7 +230,6 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
 /* ---------- Narrow screens ---------- */
 @media (max-width: 52rem) {
   .hero .wrap, .about .wrap { grid-template-columns: minmax(0, 1fr); }
-  .about .wrap > div:last-child { position: static; }
   .hero .cover { order: -1; max-width: 30rem; }
   .jcard { grid-template-columns: minmax(0, 1fr); }
   .side + .side { border-left: 0; border-top: 1.5px dashed var(--line); }
@@ -359,6 +363,13 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
         <p>We make atmospheric pop. Synth pads, lush guitars, bass and drums that keep pushing, and vocals that go big when the song calls for it.</p>
         <p>David played in Future Unlimited before this and brings a really tasteful ear to everything we record.</p>
         <p><i>Slow Blink</i> is our first album. It's eleven songs, and it's out soon.</p>
+        <div class="history">
+          <h3>David Miller: Career Highlights</h3>
+          <ul>
+            <li><b>Mother/Father</b>Formed in 2006 out of the remains of the post-hardcore band Scatter the Ashes, Miller joined the lineup alongside James Robert Farmer, Matthew McCord, Dave McNally, and Dillion Napier. He provided drums and vocals for the group.</li>
+            <li><b>Future Unlimited</b>Following his time with Mother/Father, Miller went on to front the synth-pop/shoegaze band Future Unlimited as its lead vocalist and frontman. The band gained notable attention when actor Shia LaBeouf directed the cinematic music video for their track &ldquo;Haunted Love.&rdquo;</li>
+          </ul>
+        </div>
         <p class="for-fans">Influences: Drab Majesty · Boy Harsher · Tears for Fears · The Church · Icehouse · The Sound · New Order · Thompson Twins · The Smiths · Ariel Pink · The Cars · Duran Duran · Genesis · Ice Choir · Men I Trust · Roxy Music · Tamaryn</p>
       </div>
     </div>
