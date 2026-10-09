@@ -37,6 +37,17 @@ body {
   font: 400 1.0625rem/1.6 var(--f-body);
   font-stretch: 100%;
   -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+/* Worn sleeve: scratches, scuffs and blotchy wear, plus fine film grain, scrolling with the page behind everything */
+body::before {
+  content: "";
+  position: absolute; inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url("assets/grime.png"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .92  0 0 0 0 .9  0 0 0 0 .88  .55 0 0 0 -.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 1000px 1000px, 240px 240px;
+  opacity: .65;
 }
 img { max-width: 100%; display: block; }
 a { color: inherit; }
@@ -134,7 +145,7 @@ footer .mark .t { font-size: 1rem; margin-top: -.9rem; }
 .cover figcaption { margin-top: 1.1rem; font: 400 1.15rem/1.2 var(--f-crt); color: var(--dim); display: flex; justify-content: space-between; gap: 1rem; letter-spacing: .04em; }
 
 /* ---------- Ticker ---------- */
-.ticker { border-block: 1px solid var(--line); overflow: hidden; background: var(--ink-2); }
+.ticker { border-block: 1px solid var(--line); overflow: hidden; background: rgba(23,16,22,.55); }
 .ticker .row { display: flex; width: max-content; animation: scroll 38s linear infinite; }
 .ticker p { margin: 0; padding: .7rem 0; white-space: nowrap; font: 400 1.5rem/1 var(--f-crt); letter-spacing: .08em; text-transform: uppercase; color: var(--dim); }
 .ticker p i { font-style: normal; color: var(--magenta); padding-inline: 1.4rem; }
@@ -180,7 +191,7 @@ section { padding-block: clamp(4rem, 9vw, 7rem); }
 .for-fans { margin-top: 1.8rem; font: 400 1.3rem/1.4 var(--f-crt); color: var(--lilac); letter-spacing: .04em; }
 
 /* Shows */
-.shows { background: var(--ink-2); border-block: 1px solid var(--line); }
+.shows { background: rgba(23,16,22,.55); border-block: 1px solid var(--line); }
 .empty { border: 1.5px dashed var(--line); padding: clamp(1.5rem, 4vw, 2.5rem); display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
 .empty p { margin: 0; font: 400 1.6rem/1.25 var(--f-crt); letter-spacing: .04em; max-width: 34rem; }
 .empty p span { color: var(--dim); }
