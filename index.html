@@ -39,15 +39,15 @@ body {
   -webkit-font-smoothing: antialiased;
   position: relative;
 }
-/* Worn sleeve: scratches, scuffs and blotchy wear, plus fine film grain, scrolling with the page behind everything */
+/* Worn record sleeve: rubbed matte print, cardboard fibers, soft scuffs and film grain, scrolling with the page behind everything */
 body::before {
   content: "";
   position: absolute; inset: 0;
   z-index: -1;
   pointer-events: none;
-  background-image: url("assets/grime.png"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .92  0 0 0 0 .9  0 0 0 0 .88  .55 0 0 0 -.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 1000px 1000px, 240px 240px;
-  opacity: .65;
+  background-image: url("assets/sleeve.png"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .92  0 0 0 0 .9  0 0 0 0 .88  .4 0 0 0 -.18'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 1024px 1024px, 240px 240px;
+  opacity: .9;
 }
 img { max-width: 100%; display: block; }
 a { color: inherit; }
@@ -84,7 +84,9 @@ footer .mark .t { font-size: 1rem; margin-top: -.9rem; }
 .top nav a:hover { color: var(--bone); }
 
 /* ---------- Hero ---------- */
-.hero { padding-block: clamp(2.5rem, 7vw, 6rem) clamp(3rem, 7vw, 5rem); position: relative; overflow: hidden; }
+.hero { padding-block: clamp(2.5rem, 7vw, 6rem) clamp(3rem, 7vw, 5rem); position: relative; overflow: hidden;
+  /* ring wear where the record pressed through the sleeve, sitting behind the cover */
+  background: url("assets/ring-wear.png") no-repeat right -10rem top -10rem / min(64rem, 140vw); }
 .hero::before { /* magenta bloom behind the cover */
   content: ""; position: absolute; width: 60rem; height: 60rem; right: -20rem; top: -18rem;
   background: radial-gradient(closest-side, rgba(255,45,127,.2), rgba(90,20,235,.08) 60%, transparent);
@@ -197,6 +199,7 @@ section { padding-block: clamp(4rem, 9vw, 7rem); }
 .empty p span { color: var(--dim); }
 
 /* Sign-up */
+.signup { position: relative; overflow: hidden; background: url("assets/ring-wear.png") no-repeat right -24rem center / 52rem; }
 .signup .wrap { max-width: 46rem; text-align: left; }
 .signup p.sub { margin: -1.2rem 0 2rem; color: rgba(239,230,220,.8); max-width: 34rem; }
 .form { display: flex; gap: .75rem; flex-wrap: wrap; }
