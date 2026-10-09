@@ -159,10 +159,21 @@ section { padding-block: clamp(4rem, 9vw, 7rem); }
 .jcard-foot { grid-column: 1 / -1; border-top: 1.5px solid var(--bone); padding: .8rem clamp(1.25rem, 3vw, 2rem); display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font: 400 1.15rem/1.2 var(--f-crt); color: var(--dim); letter-spacing: .06em; text-transform: uppercase; }
 
 /* About */
-.about .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
-.member { margin: 0; }
-.member img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; filter: grayscale(1) contrast(1.08); border: 1px solid var(--line); box-shadow: 18px 18px 0 -1px rgba(90,20,235,.35); }
-.member figcaption { margin-top: 1rem; display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; font: 400 1.2rem/1.2 var(--f-crt); letter-spacing: .05em; text-transform: uppercase; color: var(--dim); }
+.about .wrap { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
+.members { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1rem, 2.5vw, 1.75rem); align-items: start; }
+.members .member:nth-child(2) { margin-top: 3rem; }  /* staggered, like two snapshots pinned to a wall */
+.member { margin: 0; min-width: 0; }
+/* Photo filter: duotone in one of the two cover colors, with CRT scanlines and a slight chroma split */
+.photo { position: relative; display: block; aspect-ratio: 4 / 5; max-width: 100%; overflow: hidden; border: 1px solid var(--line); box-shadow: 12px 12px 0 -1px rgba(90,20,235,.4); --duo: url(#duo-violet); }
+.photo.pink { --duo: url(#duo-pink); box-shadow: 12px 12px 0 -1px rgba(255,45,127,.35); }
+.photo img { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.15) var(--duo); transition: filter .4s; }
+.photo::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0 2px, rgba(0,0,0,.35) 2px 4px),
+    radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(12,8,11,.7));
+  box-shadow: inset 3px 0 0 rgba(236,58,44,.25), inset -3px 0 0 rgba(90,20,235,.3); }
+.member:hover .photo img { filter: contrast(1.3) brightness(1.08) var(--duo); }
+.member figcaption { margin-top: 1.1rem; display: grid; gap: .2rem; font: 400 1.15rem/1.2 var(--f-crt); letter-spacing: .05em; text-transform: uppercase; color: var(--dim); }
 .member figcaption b { font-weight: 400; color: var(--bone); }
 .about p { margin: 0 0 1.1rem; max-width: 36rem; color: rgba(239,230,220,.86); }
 .about p:first-of-type { font-size: 1.3rem; line-height: 1.45; color: var(--bone); }
@@ -216,6 +227,26 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
 </style>
 </head>
 <body>
+
+<!-- Duotone filters for band photos: shadows go to the page black, highlights to a cover color -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <filter id="duo-pink" color-interpolation-filters="sRGB">
+    <feColorMatrix type="matrix" values=".3 .59 .11 0 0  .3 .59 .11 0 0  .3 .59 .11 0 0  0 0 0 1 0"/>
+    <feComponentTransfer>
+      <feFuncR type="table" tableValues=".047 1 1"/>
+      <feFuncG type="table" tableValues=".031 .176 .8"/>
+      <feFuncB type="table" tableValues=".043 .498 .87"/>
+    </feComponentTransfer>
+  </filter>
+  <filter id="duo-violet" color-interpolation-filters="sRGB">
+    <feColorMatrix type="matrix" values=".3 .59 .11 0 0  .3 .59 .11 0 0  .3 .59 .11 0 0  0 0 0 1 0"/>
+    <feComponentTransfer>
+      <feFuncR type="table" tableValues=".047 .353 .88"/>
+      <feFuncG type="table" tableValues=".031 .078 .84"/>
+      <feFuncB type="table" tableValues=".043 .922 1"/>
+    </feComponentTransfer>
+  </filter>
+</svg>
 
 <header class="top">
   <div class="wrap">
@@ -297,10 +328,16 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
   <!-- ABOUT -->
   <section id="about" class="about">
     <div class="wrap">
-      <figure class="member">
-        <img src="assets/david-miller.jpg" alt="David Miller in a fedora and round sunglasses, taking a selfie in a dim pool hall" width="900" height="1125" loading="lazy">
-        <figcaption><b>David Miller</b><span>Vocals · Drums · Production</span></figcaption>
-      </figure>
+      <div class="members">
+        <figure class="member">
+          <span class="photo violet"><img src="assets/david-miller.jpg" alt="David Miller in a fedora and round sunglasses, taking a selfie in a dim pool hall" width="900" height="1125" loading="lazy"></span>
+          <figcaption><b>David Miller</b><span>Vocals · Drums · Production</span></figcaption>
+        </figure>
+        <figure class="member">
+          <span class="photo pink"><img src="assets/jarrod-feintuch.jpg" alt="Jarrod Feintuch in a black fedora, tinted sunglasses and a floral shirt" width="323" height="404" loading="lazy"></span>
+          <figcaption><b>Jarrod Feintuch</b><span>Guitar · Songwriting</span></figcaption>
+        </figure>
+      </div>
       <div>
         <h2 class="h2"><em>the</em>Band</h2>
         <p>Lilac Triggers make music for the hour after the party, when the lights are still on and nobody wants to go home.</p>
