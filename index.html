@@ -191,6 +191,8 @@ section { padding-block: clamp(4rem, 9vw, 7rem); }
 .about p:first-of-type { font-size: 1.3rem; line-height: 1.45; color: var(--bone); }
 /* Career highlights, set like liner-note credits */
 .history { margin-block: 2.2rem; padding-block: 1.6rem; border-bottom: 1px dashed var(--line); border-top: 1px dashed var(--line); max-width: 36rem; }
+.history:has(+ .history) { margin-bottom: 0; }
+.history + .history { margin-top: 0; border-top: 0; }
 .history h3 { margin: 0 0 1.1rem; font: 400 1.4rem/1.2 var(--f-crt); letter-spacing: .06em; text-transform: uppercase; color: var(--lilac); }
 .history ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.1rem; }
 .history li { margin: 0; color: rgba(239,230,220,.86); }
@@ -368,6 +370,13 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
           <ul>
             <li><b>Mother/Father</b>Formed in 2006 out of the remains of the post-hardcore band Scatter the Ashes, Miller joined the lineup alongside James Robert Farmer, Matthew McCord, Dave McNally, and Dillion Napier. He provided drums and vocals for the group.</li>
             <li><b>Future Unlimited</b>Following his time with Mother/Father, Miller went on to front the synth-pop/shoegaze band Future Unlimited as its lead vocalist and frontman. The band gained notable attention when actor Shia LaBeouf directed the cinematic music video for their track &ldquo;Haunted Love.&rdquo;</li>
+          </ul>
+        </div>
+        <div class="history">
+          <h3>Jarrod Feintuch: Career Highlights</h3>
+          <ul>
+            <li><b>Sublux</b>Formed in 2001 out of the DIY indie rock and art-pop underground scene in Baltimore, the post-rock band received local admiration, opening for several notable acts including The Ting Tings and Liars. Feintuch was lead singer and guitarist. After two EPs, the band dispersed in 2004.</li>
+            <li><b>Static Brigade</b>After Sublux, Feintuch formed the dark synth-pop trio Static Brigade alongside Malcolm Palin and Brian Fortson (now drummer for neo-psychedelic band Classtronaut). He was the lead singer and co-songwriter up until the band&rsquo;s breakup in 2010.</li>
           </ul>
         </div>
         <p class="for-fans">Influences: Drab Majesty · Boy Harsher · Tears for Fears · The Church · Icehouse · The Sound · New Order · Thompson Twins · The Smiths · Ariel Pink · The Cars · Duran Duran · Genesis · Ice Choir · Men I Trust · Roxy Music · Tamaryn</p>
