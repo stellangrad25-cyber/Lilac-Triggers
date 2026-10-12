@@ -172,8 +172,10 @@ section { padding-block: clamp(4rem, 9vw, 7rem); }
 .jcard-foot { grid-column: 1 / -1; border-top: 1.5px solid var(--bone); padding: .8rem clamp(1.25rem, 3vw, 2rem); display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font: 400 1.15rem/1.2 var(--f-crt); color: var(--dim); letter-spacing: .06em; text-transform: uppercase; }
 
 /* About */
-.about .wrap { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.3fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
-.members { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2.5rem; max-width: 22rem; }
+/* Each member: photo, then their own career highlights underneath */
+.members { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(2.5rem, 6vw, 5rem); align-items: start; }
+.person { min-width: 0; }
+.person .photo { max-width: 24rem; }
 .member { margin: 0; min-width: 0; }
 /* Photo filter: duotone in one of the two cover colors, with CRT scanlines and a slight chroma split */
 .photo { position: relative; display: block; aspect-ratio: 4 / 5; max-width: 100%; overflow: hidden; border: 1px solid var(--line); box-shadow: 12px 12px 0 -1px rgba(90,20,235,.4); --duo: url(#duo-violet); }
@@ -190,14 +192,12 @@ section { padding-block: clamp(4rem, 9vw, 7rem); }
 .about p { margin: 0 0 1.1rem; max-width: 36rem; color: rgba(239,230,220,.86); }
 .about p:first-of-type { font-size: 1.3rem; line-height: 1.45; color: var(--bone); }
 /* Career highlights, set like liner-note credits */
-.history { margin-block: 2.2rem; padding-block: 1.6rem; border-bottom: 1px dashed var(--line); border-top: 1px dashed var(--line); max-width: 36rem; }
-.h2 + .history { margin-top: 0; padding-top: 0; border-top: 0; }
-.history:has(+ .history) { margin-bottom: 0; }
-.history + .history { margin-top: 0; border-top: 0; }
+.history { margin-top: 1.6rem; padding-top: 1.4rem; border-top: 1px dashed var(--line); max-width: 36rem; }
 .history h3 { margin: 0 0 1.1rem; font: 400 1.4rem/1.2 var(--f-crt); letter-spacing: .06em; text-transform: uppercase; color: var(--lilac); }
 .history ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.1rem; }
 .history li { margin: 0; color: rgba(239,230,220,.86); }
 .history li b { display: block; margin-bottom: .2rem; font: 800 .85rem/1.2 var(--f-display); font-stretch: 112%; letter-spacing: .12em; text-transform: uppercase; color: var(--magenta); }
+.about .for-fans { margin: 3.5rem 0 0; padding-top: 1.6rem; border-top: 1px dashed var(--line); max-width: 60rem; }
 .for-fans { margin-top: 1.8rem; font: 400 1.3rem/1.4 var(--f-crt); color: var(--lilac); letter-spacing: .04em; }
 
 /* Shows */
@@ -235,6 +235,7 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
   .hero .wrap, .about .wrap { grid-template-columns: minmax(0, 1fr); }
   .hero .cover { order: -1; max-width: 30rem; }
   .jcard { grid-template-columns: minmax(0, 1fr); }
+  .members { grid-template-columns: minmax(0, 1fr); }
   .side + .side { border-left: 0; border-top: 1.5px dashed var(--line); }
 }
 @media (max-width: 30rem) {
@@ -287,10 +288,10 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
   <div class="hero">
     <div class="wrap">
       <div>
-        <p class="eyebrow"><span class="rec" aria-hidden="true"></span>New album · Coming soon</p>
+        <p class="eyebrow"><span class="rec" aria-hidden="true"></span>New album · December 2026</p>
         <h1 class="title"><span>Slow</span><span class="blink">Blink</span></h1>
         <p class="lede">The first album from Lilac Triggers. 11 songs of atmospheric new wave, post-punk bliss.</p>
-        <p class="status">Release date: <b>[TBA]</b></p>
+        <p class="status">Release date: <b>December 2026</b></p>
         <div class="ctas">
           <!-- Swap these # links for your real pre-save / store URLs -->
           <a class="btn primary" href="#" target="_blank" rel="noopener">Pre-save on Spotify</a>
@@ -311,8 +312,8 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
 
   <div class="ticker" aria-hidden="true">
     <div class="row">
-      <p>Slow Blink<i>✕</i>Lilac Triggers<i>✕</i>Atmospheric pop after dark<i>✕</i>Debut LP<i>✕</i>Coming soon<i>✕</i>Slow Blink<i>✕</i>Lilac Triggers<i>✕</i>Atmospheric pop after dark<i>✕</i>Debut LP<i>✕</i>Coming soon<i>✕</i></p>
-      <p>Slow Blink<i>✕</i>Lilac Triggers<i>✕</i>Atmospheric pop after dark<i>✕</i>Debut LP<i>✕</i>Coming soon<i>✕</i>Slow Blink<i>✕</i>Lilac Triggers<i>✕</i>Atmospheric pop after dark<i>✕</i>Debut LP<i>✕</i>Coming soon<i>✕</i></p>
+      <p>Slow Blink<i>✕</i>Lilac Triggers<i>✕</i>Atmospheric pop after dark<i>✕</i>Debut LP<i>✕</i>Out December 2026<i>✕</i>Slow Blink<i>✕</i>Lilac Triggers<i>✕</i>Atmospheric pop after dark<i>✕</i>Debut LP<i>✕</i>Out December 2026<i>✕</i></p>
+      <p>Slow Blink<i>✕</i>Lilac Triggers<i>✕</i>Atmospheric pop after dark<i>✕</i>Debut LP<i>✕</i>Out December 2026<i>✕</i>Slow Blink<i>✕</i>Lilac Triggers<i>✕</i>Atmospheric pop after dark<i>✕</i>Debut LP<i>✕</i>Out December 2026<i>✕</i></p>
     </div>
   </div>
 
@@ -350,34 +351,36 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
   <!-- ABOUT -->
   <section id="about" class="about">
     <div class="wrap">
+      <h2 class="h2"><em>the</em>Band</h2>
       <div class="members">
-        <figure class="member">
-          <span class="photo violet"><img src="assets/david-miller.jpg" alt="David Miller in a fedora and round sunglasses, taking a selfie in a dim pool hall" width="900" height="1125" loading="lazy"></span>
-          <figcaption><b>David Miller</b></figcaption>
-        </figure>
-        <figure class="member">
-          <span class="photo pink"><img src="assets/jarrod-feintuch.jpg" alt="Jarrod Feintuch in a black fedora, tinted sunglasses and a floral shirt" width="640" height="800" loading="lazy"></span>
-          <figcaption><b>Jarrod Feintuch</b></figcaption>
-        </figure>
-      </div>
-      <div>
-        <h2 class="h2"><em>the</em>Band</h2>
-        <div class="history">
-          <h3>David Miller: Career Highlights</h3>
-          <ul>
-            <li><b>Mother/Father</b>Formed in 2006 out of the remains of the post-hardcore band Scatter the Ashes, Miller joined the lineup alongside James Robert Farmer, Matthew McCord, Dave McNally, and Dillion Napier. He provided drums and vocals for the group.</li>
-            <li><b>Future Unlimited</b>Following his time with Mother/Father, Miller went on to front the synth-pop/shoegaze band Future Unlimited as its lead vocalist and frontman. The band gained notable attention when actor Shia LaBeouf directed the cinematic music video for their track &ldquo;Haunted Love.&rdquo;</li>
-          </ul>
+        <div class="person">
+          <figure class="member">
+            <span class="photo violet"><img src="assets/david-miller.jpg" alt="David Miller in a fedora and round sunglasses, taking a selfie in a dim pool hall" width="900" height="1125" loading="lazy"></span>
+            <figcaption><b>David Miller</b></figcaption>
+          </figure>
+          <div class="history">
+            <h3>Career Highlights</h3>
+            <ul>
+              <li><b>Mother/Father</b>Formed in 2006 out of the remains of the post-hardcore band Scatter the Ashes, Miller joined the lineup alongside James Robert Farmer, Matthew McCord, Dave McNally, and Dillion Napier. He provided drums and vocals for the group.</li>
+              <li><b>Future Unlimited</b>Following his time with Mother/Father, Miller went on to front the synth-pop/shoegaze band Future Unlimited as its lead vocalist and frontman. The band gained notable attention when actor Shia LaBeouf directed the cinematic music video for their track &ldquo;Haunted Love.&rdquo;</li>
+            </ul>
+          </div>
         </div>
-        <div class="history">
-          <h3>Jarrod Feintuch: Career Highlights</h3>
-          <ul>
-            <li><b>Sublux</b>Formed in 2001 out of the DIY indie rock and art-pop underground scene in Baltimore, the post-rock band received local admiration, opening for several notable acts including The Ting Tings and Liars. Feintuch was lead singer and guitarist. After two EPs, the band dispersed in 2004.</li>
-            <li><b>Static Brigade</b>After Sublux, Feintuch formed the dark synth-pop trio Static Brigade alongside Malcolm Palin and Brian Fortson (now drummer for neo-psychedelic band Classtronaut). He was the lead singer and co-songwriter up until the band&rsquo;s breakup in 2010.</li>
-          </ul>
+        <div class="person">
+          <figure class="member">
+            <span class="photo pink"><img src="assets/jarrod-feintuch.jpg" alt="Jarrod Feintuch in a black fedora, tinted sunglasses and a floral shirt" width="640" height="800" loading="lazy"></span>
+            <figcaption><b>Jarrod Feintuch</b></figcaption>
+          </figure>
+          <div class="history">
+            <h3>Career Highlights</h3>
+            <ul>
+              <li><b>Sublux</b>Formed in 2001 out of the DIY indie rock and art-pop underground scene in Baltimore, the post-rock band received local admiration, opening for several notable acts including The Ting Tings and Liars. Feintuch was lead singer and guitarist. After two EPs, the band dispersed in 2004.</li>
+              <li><b>Static Brigade</b>After Sublux, Feintuch formed the dark synth-pop trio Static Brigade alongside Malcolm Palin and Brian Fortson (now drummer for neo-psychedelic band Classtronaut). He was the lead singer and co-songwriter up until the band&rsquo;s breakup in 2010.</li>
+            </ul>
+          </div>
         </div>
-        <p class="for-fans">Influences: Drab Majesty · Boy Harsher · Tears for Fears · The Church · Icehouse · The Sound · New Order · Thompson Twins · The Smiths · Ariel Pink · The Cars · Duran Duran · Genesis · Ice Choir · Men I Trust · Roxy Music · Tamaryn</p>
       </div>
+      <p class="for-fans">Influences: Drab Majesty · Boy Harsher · Tears for Fears · The Church · Icehouse · The Sound · New Order · Thompson Twins · The Smiths · Ariel Pink · The Cars · Duran Duran · Genesis · Ice Choir · Men I Trust · Roxy Music · Tamaryn</p>
     </div>
   </section>
 
