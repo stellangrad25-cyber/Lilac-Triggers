@@ -7,7 +7,7 @@
 <meta name="description" content="Slow Blink, the debut album from Lilac Triggers. Atmospheric pop after dark.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=VT323&family=Mr+Dafoe&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=Mr+Dafoe&display=swap">
 <style>
 /* Layout: a late-night CRT broadcast. Cover-led hero, then cassette J-card tracklist, then a sign-up "transmission". */
 :root {
@@ -23,7 +23,7 @@
 
   --f-display: "Archivo", "Arial Black", Impact, sans-serif;
   --f-body: "Archivo", "Helvetica Neue", Arial, sans-serif;
-  --f-crt: "VT323", "Courier New", monospace;
+  --f-crt: "IBM Plex Mono", ui-monospace, "Courier New", monospace;
   --f-script: "Mr Dafoe", "Brush Script MT", cursive;
 
   color-scheme: dark;
@@ -58,7 +58,7 @@ body::after {
   content: "";
   position: fixed; inset: 0;
   pointer-events: none;
-  background: repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0 2px, rgba(0,0,0,.22) 2px 3px);
+  background: repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0 2px, rgba(0,0,0,.08) 2px 3px);
   mix-blend-mode: multiply;
   z-index: 50;
 }
@@ -79,7 +79,7 @@ body::after {
 .mark .t { margin-top: -.8rem; font: 900 .86rem/1 var(--f-display); font-stretch: 125%; letter-spacing: .02em; color: var(--red); }
 footer .mark .l { width: 6.4rem; }
 footer .mark .t { font-size: 1rem; margin-top: -.9rem; }
-.top nav { display: flex; gap: 1.25rem; font: 400 1.25rem/1 var(--f-crt); letter-spacing: .06em; text-transform: uppercase; }
+.top nav { display: flex; gap: 1.25rem; font: 500 0.83rem/1 var(--f-crt); letter-spacing: .06em; text-transform: uppercase; }
 .top nav a { text-decoration: none; color: var(--dim); }
 .top nav a:hover { color: var(--bone); }
 
@@ -94,9 +94,7 @@ footer .mark .t { font-size: 1rem; margin-top: -.9rem; }
 }
 .hero .wrap { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; position: relative; }
 
-.eyebrow { font: 400 1.35rem/1 var(--f-crt); color: var(--lilac); letter-spacing: .08em; text-transform: uppercase; margin: 0 0 1.1rem; display: flex; align-items: center; gap: .6rem; }
-.rec { width: .6rem; height: .6rem; border-radius: 50%; background: var(--red); box-shadow: 0 0 10px var(--red); animation: rec 1.6s steps(1) infinite; }
-@keyframes rec { 50% { opacity: .15; } }
+.eyebrow { font: 500 0.89rem/1 var(--f-crt); color: var(--lilac); letter-spacing: .08em; text-transform: uppercase; margin: 0 0 1.1rem; display: flex; align-items: center; gap: .6rem; }
 
 .title {
   margin: 0;
@@ -109,7 +107,7 @@ footer .mark .t { font-size: 1rem; margin-top: -.9rem; }
   font-size: clamp(3.4rem, 10.5vw, 8.5rem);
 }
 .title span { display: block; }
-.title .blink { position: relative; display: inline-block; color: var(--magenta); text-shadow: 3px 0 0 rgba(236,58,44,.7), -3px 0 0 rgba(90,20,235,.75); }
+.title .blink { position: relative; display: inline-block; color: var(--magenta); }
 /* The eyelids: two bars that close over BLINK, slowly */
 .title .blink::before, .title .blink::after {
   content: ""; position: absolute; left: -2%; right: -2%; height: 51%;
@@ -121,7 +119,7 @@ footer .mark .t { font-size: 1rem; margin-top: -.9rem; }
 @keyframes lid { 0%, 70%, 100% { transform: scaleY(0); } 80%, 86% { transform: scaleY(1); } }
 
 .lede { max-width: 34rem; margin: 1.6rem 0 0; color: var(--bone); opacity: .85; font-size: 1.15rem; text-wrap: pretty; }
-.status { margin: 1.4rem 0 0; font: 400 1.5rem/1.2 var(--f-crt); color: var(--dim); letter-spacing: .04em; }
+.status { margin: 1.4rem 0 0; font: 500 0.99rem/1.2 var(--f-crt); color: var(--dim); letter-spacing: .04em; }
 .status b { color: var(--bone); font-weight: 400; }
 
 .ctas { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; }
@@ -144,12 +142,12 @@ footer .mark .t { font-size: 1rem; margin-top: -.9rem; }
 .cover .ghost { position: absolute; inset: 0; mix-blend-mode: screen; opacity: 0; transform: translateX(0); }
 .cover:hover .ghost { animation: track .9s steps(4) 1; }
 @keyframes track { 0% { opacity: .55; transform: translateX(6px); } 50% { opacity: .35; transform: translate(-4px, 2px); } 100% { opacity: 0; transform: none; } }
-.cover figcaption { margin-top: 1.1rem; font: 400 1.15rem/1.2 var(--f-crt); color: var(--dim); display: flex; justify-content: space-between; gap: 1rem; letter-spacing: .04em; }
+.cover figcaption { margin-top: 1.1rem; font: 500 0.76rem/1.2 var(--f-crt); color: var(--dim); display: flex; justify-content: space-between; gap: 1rem; letter-spacing: .04em; }
 
 /* ---------- Ticker ---------- */
 .ticker { border-block: 1px solid var(--line); overflow: hidden; background: rgba(23,16,22,.55); }
 .ticker .row { display: flex; width: max-content; animation: scroll 38s linear infinite; }
-.ticker p { margin: 0; padding: .7rem 0; white-space: nowrap; font: 400 1.5rem/1 var(--f-crt); letter-spacing: .08em; text-transform: uppercase; color: var(--dim); }
+.ticker p { margin: 0; padding: .7rem 0; white-space: nowrap; font: 500 0.99rem/1 var(--f-crt); letter-spacing: .08em; text-transform: uppercase; color: var(--dim); }
 .ticker p i { font-style: normal; color: var(--magenta); padding-inline: 1.4rem; }
 @keyframes scroll { to { transform: translateX(-50%); } }
 
@@ -162,14 +160,14 @@ section { padding-block: clamp(4rem, 9vw, 7rem); }
 .jcard { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1.5px solid var(--bone); }
 .side { padding: clamp(1.25rem, 3vw, 2rem); min-width: 0; }
 .side + .side { border-left: 1.5px dashed var(--line); }
-.side h3 { margin: 0 0 1.2rem; display: flex; justify-content: space-between; align-items: baseline; font: 400 1.5rem/1 var(--f-crt); letter-spacing: .08em; color: var(--lilac); text-transform: uppercase; }
+.side h3 { margin: 0 0 1.2rem; display: flex; justify-content: space-between; align-items: baseline; font: 500 0.99rem/1 var(--f-crt); letter-spacing: .08em; color: var(--lilac); text-transform: uppercase; }
 .side h3 span { color: var(--dim); font-size: 1.1rem; }
 .side ol { list-style: none; margin: 0; padding: 0; display: grid; }
 .side li { display: grid; grid-template-columns: 2.2rem minmax(0, 1fr); align-items: baseline; gap: .75rem; padding-block: .75rem; border-bottom: 1px solid var(--line); }
 .side li:last-child { border-bottom: 0; }
-.side .n { font: 400 1.2rem/1 var(--f-crt); color: var(--magenta); }
+.side .n { font: 500 0.79rem/1 var(--f-crt); color: var(--magenta); }
 .side .name { font-weight: 700; font-stretch: 112%; letter-spacing: .01em; }
-.jcard-foot { grid-column: 1 / -1; border-top: 1.5px solid var(--bone); padding: .8rem clamp(1.25rem, 3vw, 2rem); display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font: 400 1.15rem/1.2 var(--f-crt); color: var(--dim); letter-spacing: .06em; text-transform: uppercase; }
+.jcard-foot { grid-column: 1 / -1; border-top: 1.5px solid var(--bone); padding: .8rem clamp(1.25rem, 3vw, 2rem); display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font: 500 0.76rem/1.2 var(--f-crt); color: var(--dim); letter-spacing: .06em; text-transform: uppercase; }
 
 /* About */
 /* Each member: photo, then their own career highlights underneath */
@@ -183,27 +181,25 @@ section { padding-block: clamp(4rem, 9vw, 7rem); }
 .photo img { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.15) var(--duo); transition: filter .4s; }
 .photo::after { content: ""; position: absolute; inset: 0; pointer-events: none;
   background:
-    repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0 2px, rgba(0,0,0,.35) 2px 4px),
+    repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0 2px, rgba(0,0,0,.14) 2px 4px),
     radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(12,8,11,.7));
   box-shadow: inset 3px 0 0 rgba(236,58,44,.25), inset -3px 0 0 rgba(90,20,235,.3); }
 .member:hover .photo img { filter: contrast(1.3) brightness(1.08) var(--duo); }
-.member figcaption { margin-top: 1.7rem; display: grid; gap: .2rem; font: 400 1.15rem/1.2 var(--f-crt); letter-spacing: .05em; text-transform: uppercase; color: var(--dim); }
+.member figcaption { margin-top: 1.7rem; display: grid; gap: .2rem; font: 500 0.76rem/1.2 var(--f-crt); letter-spacing: .05em; text-transform: uppercase; color: var(--dim); }
 .member figcaption b { font: 900 clamp(1.5rem, 2.6vw, 2rem)/1 var(--f-display); font-stretch: 125%; letter-spacing: 0; color: var(--bone); }
 .about p { margin: 0 0 1.1rem; max-width: 36rem; color: rgba(239,230,220,.86); }
-.about p:first-of-type { font-size: 1.3rem; line-height: 1.45; color: var(--bone); }
-/* Career highlights, set like liner-note credits */
-.history { margin-top: 1.6rem; padding-top: 1.4rem; border-top: 1px dashed var(--line); max-width: 36rem; }
-.history h3 { margin: 0 0 1.1rem; font: 400 1.4rem/1.2 var(--f-crt); letter-spacing: .06em; text-transform: uppercase; color: var(--lilac); }
-.history ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.1rem; }
-.history li { margin: 0; color: rgba(239,230,220,.86); }
-.history li b { display: block; margin-bottom: .2rem; font: 800 .85rem/1.2 var(--f-display); font-stretch: 112%; letter-spacing: .12em; text-transform: uppercase; color: var(--magenta); }
+/* Short bio under each photo, then the band's story across the full width */
+.bio { margin-top: 1.4rem; max-width: 34rem; }
+.bio p { margin: 0 0 .9rem; color: rgba(239,230,220,.86); }
+.story { margin-top: clamp(3rem, 6vw, 4.5rem); max-width: 46rem; }
+.story p { margin: 0 0 1.1rem; font-size: clamp(1.15rem, 1.8vw, 1.35rem); line-height: 1.5; color: var(--bone); }
 .about .for-fans { margin: 3.5rem 0 0; padding-top: 1.6rem; border-top: 1px dashed var(--line); max-width: 60rem; }
-.for-fans { margin-top: 1.8rem; font: 400 1.3rem/1.4 var(--f-crt); color: var(--lilac); letter-spacing: .04em; }
+.for-fans { margin-top: 1.8rem; font: 500 0.86rem/1.9 var(--f-crt); color: var(--lilac); letter-spacing: .04em; }
 
 /* Shows */
 .shows { background: rgba(23,16,22,.55); border-block: 1px solid var(--line); }
 .empty { border: 1.5px dashed var(--line); padding: clamp(1.5rem, 4vw, 2.5rem); display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
-.empty p { margin: 0; font: 400 1.6rem/1.25 var(--f-crt); letter-spacing: .04em; max-width: 34rem; }
+.empty p { margin: 0; font: 500 1.06rem/1.25 var(--f-crt); letter-spacing: .04em; max-width: 34rem; }
 .empty p span { color: var(--dim); }
 
 /* Sign-up */
@@ -216,19 +212,19 @@ section { padding-block: clamp(4rem, 9vw, 7rem); }
   flex: 1 1 16rem; min-width: 0;
   padding: .95rem 1rem; background: transparent; color: var(--bone);
   border: 1.5px solid var(--bone); border-radius: 0;
-  font: 400 1.4rem/1 var(--f-crt); letter-spacing: .04em;
+  font: 400 1rem/1 var(--f-crt); letter-spacing: .02em;
 }
 .form input::placeholder { color: var(--dim); }
 .form button { cursor: pointer; }
-.form-msg { margin: 1rem 0 0; font: 400 1.35rem/1.2 var(--f-crt); color: var(--magenta); letter-spacing: .04em; min-height: 1.4em; }
+.form-msg { margin: 1rem 0 0; font: 500 0.89rem/1.2 var(--f-crt); color: var(--magenta); letter-spacing: .04em; min-height: 1.4em; }
 
 /* Footer */
 footer { border-top: 1px solid var(--line); padding-block: 2.5rem 3rem; }
 footer .wrap { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
-.socials { display: flex; gap: 1.25rem; flex-wrap: wrap; font: 400 1.3rem/1 var(--f-crt); letter-spacing: .06em; text-transform: uppercase; }
+.socials { display: flex; gap: 1.25rem; flex-wrap: wrap; font: 500 0.86rem/1 var(--f-crt); letter-spacing: .06em; text-transform: uppercase; }
 .socials a { text-decoration: none; color: var(--dim); }
 .socials a:hover { color: var(--magenta); }
-.fine { font: 400 1.1rem/1 var(--f-crt); color: var(--dim); letter-spacing: .04em; }
+.fine { font: 500 0.73rem/1 var(--f-crt); color: var(--dim); letter-spacing: .04em; }
 
 /* ---------- Narrow screens ---------- */
 @media (max-width: 52rem) {
@@ -288,7 +284,7 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
   <div class="hero">
     <div class="wrap">
       <div>
-        <p class="eyebrow"><span class="rec" aria-hidden="true"></span>New album · December 2026</p>
+        <p class="eyebrow">New album · December 2026</p>
         <h1 class="title"><span>Slow</span><span class="blink">Blink</span></h1>
         <p class="lede">The first album from Lilac Triggers. 11 songs of atmospheric new wave, post-punk bliss.</p>
         <p class="status">Release date: <b>December 2026</b></p>
@@ -305,7 +301,7 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
           <img src="assets/cover-pink.jpg" alt="Slow Blink album cover: a face in a hot-pink brushstroke with scanlines, under a white Lilac and red Triggers wordmark" width="1200" height="1200">
           <img class="ghost" src="assets/cover-violet.jpg" alt="" aria-hidden="true">
         </div>
-        <figcaption><span>SLOW BLINK · LP</span><span>PLAY ▶ 00:00</span></figcaption>
+        <figcaption><span>Slow Blink · LP</span><span>December 2026</span></figcaption>
       </figure>
     </div>
   </div>
@@ -358,12 +354,9 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
             <span class="photo violet"><img src="assets/david-miller.jpg" alt="David Miller in a fedora and round sunglasses, taking a selfie in a dim pool hall" width="900" height="1125" loading="lazy"></span>
             <figcaption><b>David Miller</b></figcaption>
           </figure>
-          <div class="history">
-            <h3>Career Highlights</h3>
-            <ul>
-              <li><b>Mother/Father</b>Formed in 2006 out of the remains of the post-hardcore band Scatter the Ashes, Miller joined the lineup alongside James Robert Farmer, Matthew McCord, Dave McNally, and Dillion Napier. He provided drums and vocals for the group.</li>
-              <li><b>Future Unlimited</b>Following his time with Mother/Father, Miller went on to front the synth-pop/shoegaze band Future Unlimited as its lead vocalist and frontman. The band gained notable attention when actor Shia LaBeouf directed the cinematic music video for their track &ldquo;Haunted Love.&rdquo;</li>
-            </ul>
+          <div class="bio">
+            <p>David grew up in Naples, Florida. He&rsquo;s a drummer and vocalist by trade, and he&rsquo;s been making music for more than 20 years.</p>
+            <p>He&rsquo;s also a gifted producer with an encyclopedic knowledge of music. Name a band and David knows it.</p>
           </div>
         </div>
         <div class="person">
@@ -371,16 +364,17 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
             <span class="photo pink"><img src="assets/jarrod-feintuch.jpg" alt="Jarrod Feintuch in a black fedora, tinted sunglasses and a floral shirt" width="640" height="800" loading="lazy"></span>
             <figcaption><b>Jarrod Feintuch</b></figcaption>
           </figure>
-          <div class="history">
-            <h3>Career Highlights</h3>
-            <ul>
-              <li><b>Sublux</b>Formed in 2001 out of the DIY indie rock and art-pop underground scene in Baltimore, the post-rock band received local admiration, opening for several notable acts including The Ting Tings and Liars. Feintuch was lead singer and guitarist. After two EPs, the band dispersed in 2004.</li>
-              <li><b>Static Brigade</b>After Sublux, Feintuch formed the dark synth-pop trio Static Brigade alongside Malcolm Palin and Brian Fortson (now drummer for neo-psychedelic band Classtronaut). He was the lead singer and co-songwriter up until the band&rsquo;s breakup in 2010.</li>
-            </ul>
+          <div class="bio">
+            <p>Jarrod is a guitarist by trade. He moved to Naples from Baltimore and met David in early 2022.</p>
+            <p>The two started writing songs together, at first just for fun.</p>
           </div>
         </div>
       </div>
-      <p class="for-fans">Influences: Icehouse · Drab Majesty · Boy Harsher · Tears for Fears · The Church · The Sound · New Order · Thompson Twins · The Smiths · Ariel Pink · The Cars · Duran Duran · Genesis · Ice Choir · Men I Trust · Roxy Music · Tamaryn</p>
+      <div class="story">
+        <p>What started as a hobby turned into a songwriting partnership that runs like a well-oiled machine. David and Jarrod love the same music, and it shows.</p>
+        <p>Lilac Triggers is an open nod to the new wave and post-punk of the 80s, built with modern production and a pop sensibility. Booming drums, lush pads, aggressive bass lines and smooth guitar tones.</p>
+      </div>
+      <p class="for-fans">Influences: Icehouse · Tears for Fears · The Church · The Sound · New Order · Thompson Twins · The Smiths · Ariel Pink · The Cars · Duran Duran · Genesis · Ice Choir · Men I Trust · Roxy Music · Tamaryn</p>
     </div>
   </section>
 
