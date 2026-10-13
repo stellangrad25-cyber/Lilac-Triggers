@@ -175,16 +175,15 @@ section { padding-block: clamp(4rem, 9vw, 7rem); }
 .person { min-width: 0; }
 .person .photo { max-width: 24rem; }
 .member { margin: 0; min-width: 0; }
-/* Photo filter: duotone in one of the two cover colors, with CRT scanlines and a slight chroma split */
-.photo { position: relative; display: block; aspect-ratio: 4 / 5; max-width: 100%; overflow: hidden; border: 1px solid var(--line); box-shadow: 12px 12px 0 -1px rgba(90,20,235,.4); --duo: url(#duo-violet); }
-.photo.pink { --duo: url(#duo-pink); box-shadow: 12px 12px 0 -1px rgba(255,45,127,.35); }
-.photo img { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.15) var(--duo); transition: filter .4s; }
+/* Photo treatment: black and white, with faint scanlines and a vignette */
+.photo { position: relative; display: block; aspect-ratio: 4 / 5; max-width: 100%; overflow: hidden; border: 1px solid var(--line); box-shadow: 12px 12px 0 -1px rgba(239,230,220,.1); }
+.photo img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.1); transition: filter .4s; }
 .photo::after { content: ""; position: absolute; inset: 0; pointer-events: none;
   background:
     repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0 2px, rgba(0,0,0,.14) 2px 4px),
     radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(12,8,11,.7));
-  box-shadow: inset 3px 0 0 rgba(236,58,44,.25), inset -3px 0 0 rgba(90,20,235,.3); }
-.member:hover .photo img { filter: contrast(1.3) brightness(1.08) var(--duo); }
+  }
+.member:hover .photo img { filter: grayscale(1) contrast(1.2) brightness(1.05); }
 .member figcaption { margin-top: 1.7rem; display: grid; gap: .2rem; font: 500 0.76rem/1.2 var(--f-crt); letter-spacing: .05em; text-transform: uppercase; color: var(--dim); }
 .member figcaption b { font: 900 clamp(1.5rem, 2.6vw, 2rem)/1 var(--f-display); font-stretch: 125%; letter-spacing: 0; color: var(--bone); }
 .about p { margin: 0 0 1.1rem; max-width: 36rem; color: rgba(239,230,220,.86); }
@@ -246,26 +245,6 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
 </style>
 </head>
 <body>
-
-<!-- Duotone filters for band photos: shadows go to the page black, highlights to a cover color -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <filter id="duo-pink" color-interpolation-filters="sRGB">
-    <feColorMatrix type="matrix" values=".3 .59 .11 0 0  .3 .59 .11 0 0  .3 .59 .11 0 0  0 0 0 1 0"/>
-    <feComponentTransfer>
-      <feFuncR type="table" tableValues=".047 1 1"/>
-      <feFuncG type="table" tableValues=".031 .176 .8"/>
-      <feFuncB type="table" tableValues=".043 .498 .87"/>
-    </feComponentTransfer>
-  </filter>
-  <filter id="duo-violet" color-interpolation-filters="sRGB">
-    <feColorMatrix type="matrix" values=".3 .59 .11 0 0  .3 .59 .11 0 0  .3 .59 .11 0 0  0 0 0 1 0"/>
-    <feComponentTransfer>
-      <feFuncR type="table" tableValues=".047 .353 .88"/>
-      <feFuncG type="table" tableValues=".031 .078 .84"/>
-      <feFuncB type="table" tableValues=".043 .922 1"/>
-    </feComponentTransfer>
-  </filter>
-</svg>
 
 <header class="top">
   <div class="wrap">
@@ -351,7 +330,7 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
       <div class="members">
         <div class="person">
           <figure class="member">
-            <span class="photo violet"><img src="assets/david-miller.jpg" alt="David Miller in a fedora and round sunglasses, taking a selfie in a dim pool hall" width="900" height="1125" loading="lazy"></span>
+            <span class="photo"><img src="assets/david-miller.jpg" alt="David Miller in a fedora and round sunglasses, taking a selfie in a dim pool hall" width="900" height="1125" loading="lazy"></span>
             <figcaption><b>David Miller</b></figcaption>
           </figure>
           <div class="bio">
@@ -361,7 +340,7 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
         </div>
         <div class="person">
           <figure class="member">
-            <span class="photo pink"><img src="assets/jarrod-feintuch.jpg" alt="Jarrod Feintuch in tortoiseshell glasses and a black printed T-shirt, in front of a framed map" width="800" height="1000" loading="lazy"></span>
+            <span class="photo"><img src="assets/jarrod-feintuch.jpg" alt="Jarrod Feintuch in a black fedora, tortoiseshell glasses and a black printed T-shirt, in front of a framed map" width="800" height="1000" loading="lazy"></span>
             <figcaption><b>Jarrod Feintuch</b></figcaption>
           </figure>
           <div class="bio">
