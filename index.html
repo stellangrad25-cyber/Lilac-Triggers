@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+SC:wght@500;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap">
 <style>
 /* Layout: a Dutch still life after dark. Painted bouquets spill in from the corners of a black room and move
-   gently behind the page; the album, video, music, band, shows and newsletter hang in gilded frames over them. */
+   gently behind the page; the album, video, music, band, shows and newsletter sit on dark panels over them. */
 :root {
   --bg: #121412;          /* chalky green-black */
   --fg: #f3ece4;          /* ivory */
@@ -54,7 +54,7 @@ a { color: inherit; }
 .top nav a:hover { color: var(--gold-hi); }
 
 /* ---------- Hero ---------- */
-.hero { text-align: center; padding-block: clamp(2.5rem, 8vh, 5rem) clamp(4rem, 10vh, 7rem); }
+.hero { text-align: center; padding-block: clamp(5rem, 20vh, 12rem) clamp(5rem, 18vh, 11rem); }
 .hero h1 { margin: .5rem 0 0; font: 400 clamp(4.4rem, 14vw, 11.5rem)/.85 var(--f-display); letter-spacing: -.01em; }
 .hero h1 i { font-weight: 500; color: #f2c6cf; }
 .hero .lede { margin: 1.5rem auto 0; max-width: 30rem; font: italic 400 clamp(1.25rem, 2.2vw, 1.5rem)/1.45 var(--f-display); }
@@ -64,15 +64,6 @@ a { color: inherit; }
 .btn.primary { background: linear-gradient(180deg, var(--gold-hi), var(--gold) 55%, #a8843f); color: #1a1208; border-color: var(--gold-hi); }
 .btn.primary:hover { filter: brightness(1.1); }
 
-/* Gilded frame: a carved gold moulding with a dark sight edge, used for the cover and the portraits */
-.frame { position: relative; margin: 0; padding: clamp(.7rem, 1.6vw, 1.1rem);
-  background:
-    linear-gradient(135deg, var(--gold-hi) 0%, var(--gold) 18%, var(--gold-lo) 34%, var(--gold-hi) 50%, var(--gold) 66%, var(--gold-lo) 82%, var(--gold-hi) 100%);
-  box-shadow: inset 0 0 0 2px rgba(255, 240, 200, .35), inset 0 0 0 5px rgba(60, 40, 10, .6), 0 30px 70px -20px rgba(0, 0, 0, .9); }
-.frame::before { content: ""; position: absolute; inset: clamp(.35rem, .8vw, .55rem); border: 1px solid rgba(60, 40, 10, .7); pointer-events: none; }
-.frame img { width: 100%; height: auto; box-shadow: 0 0 0 2px rgba(30, 20, 5, .85), inset 0 0 30px rgba(0, 0, 0, .6); }
-.hero .frame { width: min(24rem, 78vw); margin: clamp(3rem, 8vh, 4.5rem) auto 0; }
-.hero .frame img { aspect-ratio: 1; object-fit: cover; }
 
 /* ---------- Rooms ---------- */
 section { padding-block: clamp(2.5rem, 6vw, 4.5rem); }
@@ -83,7 +74,7 @@ section { padding-block: clamp(2.5rem, 6vw, 4.5rem); }
 .head h2 i { font-weight: 500; color: #f2c6cf; }
 
 /* Video */
-.video { position: relative; aspect-ratio: 16 / 9; max-width: 100%; overflow: hidden; background: #000; border: 1px solid var(--hair); }
+.video { position: relative; aspect-ratio: 16 / 9; max-width: 100%; overflow: hidden; background: radial-gradient(ellipse at 50% 45%, #2a1c22, #0b0909 70%); border: 1px solid var(--hair); }
 .video img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(.42) sepia(.15); }
 .video .play { position: absolute; inset: 0; display: grid; place-items: center; align-content: center; gap: 1rem; text-align: center; padding: 1rem; }
 .video .play span { width: clamp(4rem, 9vw, 6rem); aspect-ratio: 1; border-radius: 50%; border: 1px solid var(--gold); display: grid; place-items: center; }
@@ -98,13 +89,7 @@ section { padding-block: clamp(2.5rem, 6vw, 4.5rem); }
 .platforms a:hover span { color: var(--gold-hi); }
 
 /* Band */
-.members { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(2.5rem, 6vw, 4.5rem); }
-.member { min-width: 0; text-align: center; }
-.member .frame { max-width: 21rem; margin-inline: auto; }
-.member .frame img { aspect-ratio: 4 / 5; object-fit: cover; filter: grayscale(1) contrast(1.05) sepia(.12); }
-.member h3 { margin: 1.5rem 0 .8rem; font: 400 clamp(2rem, 3.6vw, 2.7rem)/1 var(--f-display); }
-.member p { margin: 0 auto .8rem; max-width: 30rem; color: rgba(243, 236, 228, .86); }
-.story { margin-top: clamp(3rem, 7vw, 5rem); text-align: center; }
+.story { text-align: center; }
 .story p { margin: 0 auto 1.1rem; max-width: 44rem; font: 400 clamp(1.6rem, 3vw, 2.2rem)/1.3 var(--f-display); text-wrap: pretty; }
 .story p:last-child { font-style: italic; color: #f2c6cf; }
 .influences { margin-top: clamp(2.5rem, 6vw, 4rem); text-align: center; }
@@ -137,7 +122,6 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
 
 /* ---------- Narrow screens ---------- */
 @media (max-width: 52rem) {
-  .members { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 34rem) {
   .top nav a.hide-sm { display: none; }
@@ -179,9 +163,6 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
         <a class="btn primary" href="#" target="_blank" rel="noopener">Pre-save</a>
         <a class="btn" href="#music">Listen</a>
       </div>
-      <figure class="frame">
-        <img src="assets/cover-pink.jpg" alt="Slow Blink album cover: a face in a hot-pink brushstroke with scanlines, under a white Lilac and red Triggers wordmark" width="1200" height="1200">
-      </figure>
     </div>
   </div>
 
@@ -192,7 +173,6 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
       <div class="room">
         <div class="head"><p class="caps">Coming soon</p><h2>The <i>video</i></h2><span class="fleuron" aria-hidden="true">❦</span></div>
         <div class="video">
-          <img src="assets/cover-violet.jpg" alt="" loading="lazy">
           <div class="play"><span aria-hidden="true"></span><p class="caps">The first video arrives with the album</p></div>
         </div>
       </div>
@@ -219,23 +199,8 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
     <div class="wrap">
       <div class="room">
         <div class="head"><p class="caps">Naples, Florida</p><h2>The <i>band</i></h2><span class="fleuron" aria-hidden="true">❦</span></div>
-        <div class="members">
-          <article class="member">
-            <figure class="frame"><img src="assets/david-miller.jpg" alt="David Miller in a fedora and round sunglasses, taking a selfie in a dim pool hall" width="900" height="1125" loading="lazy"></figure>
-            <h3>David Miller</h3>
-            <p>David was born and raised in Naples, Florida, and has spent the last 20 years writing and producing songs for his own projects and other notable artists. When he&rsquo;s not working on Lilac Triggers, he&rsquo;s behind the kit for other local musicians.</p>
-            <p>He&rsquo;s also a die-hard fan of 80s new wave and post-punk.</p>
-          </article>
-          <article class="member">
-            <figure class="frame"><img src="assets/jarrod-feintuch.jpg" alt="Jarrod Feintuch in a ball cap, glasses and a bomber jacket over a floral T-shirt" width="800" height="1000" loading="lazy"></figure>
-            <h3>Jarrod Feintuch</h3>
-            <p>Jarrod has been playing and performing in bands since 2001. Like David, the part he loves most about making music is the writing element.</p>
-            <p>He moved down from Baltimore, and it didn&rsquo;t take long for the two of them to realize they were chasing the same sound.</p>
-          </article>
-        </div>
 
         <div class="story">
-          <span class="fleuron" aria-hidden="true">❦</span>
           <p>Lilac Triggers started with a simple complaint: the records we wanted to hear weren&rsquo;t being made anymore. So we started making them.</p>
           <p>Cinematic soundscapes, pulsating drums, lush synth pads, glassy guitars, driving bass lines, and dramatic vocals.</p>
         </div>
@@ -325,14 +290,14 @@ document.getElementById('signup-form').addEventListener('submit', function (e) {
   var R = rng(1702);
 
   var PAL = {
-    blush:   { deep: '#6b1f38', mid: '#c97a8e', light: '#f2d6db' },
-    ivory:   { deep: '#6e6259', mid: '#d8ccc1', light: '#fbf4ec' },
-    crimson: { deep: '#330812', mid: '#8e1d36', light: '#d87487' },
-    candy:   { deep: '#9c1c46', mid: '#e7a0b3', light: '#fcebee' },
-    peach:   { deep: '#7d3532', mid: '#de9584', light: '#f7d7cb' },
-    coral:   { deep: '#8c2f2a', mid: '#ef8f74', light: '#fde0cf' },
-    mauve:   { deep: '#4e3a63', mid: '#a493c4', light: '#e2d8f1' },
-    ink:     { deep: '#0d1328', mid: '#28396a', light: '#7385b8' }
+    blush:   { deep: '#2a0a16', mid: '#7a3046', light: '#b97f8c' },
+    ivory:   { deep: '#2b241f', mid: '#8c7f72', light: '#cdbfae' },
+    crimson: { deep: '#140306', mid: '#4f0d1b', light: '#8f3447' },
+    candy:   { deep: '#2e0816', mid: '#6e2340', light: '#a85d76' },
+    peach:   { deep: '#2c1210', mid: '#7c4438', light: '#b68372' },
+    coral:   { deep: '#2a0e0b', mid: '#7d3426', light: '#b56a52' },
+    mauve:   { deep: '#1a1324', mid: '#4f4166', light: '#8a7aa3' },
+    ink:     { deep: '#05070f', mid: '#141d38', light: '#3f4d78' }
   };
 
   function sprite(w, h, draw) {
@@ -411,11 +376,11 @@ document.getElementById('signup-form').addEventListener('submit', function (e) {
         for (var k = 0; k < 7; k++) { g.beginPath(); g.arc(0, 0, r * (0.16 - k * 0.02), k * 1.3, k * 1.3 + 3.6); g.stroke(); }
         g.globalAlpha = 1;
       } else if (kind === 'peony') {
-        g.fillStyle = '#d9b25e';
+        g.fillStyle = '#8f7034';
         for (var d = 0; d < 26; d++) { var a = d * 2.4, rr = Math.sqrt(d) * r * 0.022; g.beginPath(); g.arc(Math.cos(a) * rr, Math.sin(a) * rr - r * 0.02, Math.max(1, r * 0.014), 0, Math.PI * 2); g.fill(); }
       }
       g.setTransform(1, 0, 0, 1, 0, 0);
-      varnish(g, w, h, 0.24, 0.58);
+      varnish(g, w, h, 0.14, 0.72);
     });
   }
 
@@ -434,7 +399,7 @@ document.getElementById('signup-form').addEventListener('submit', function (e) {
         }
       }
       g.setTransform(1, 0, 0, 1, 0, 0);
-      varnish(g, w, h, 0.22, 0.55);
+      varnish(g, w, h, 0.12, 0.7);
     });
   }
 
@@ -458,12 +423,12 @@ document.getElementById('signup-form').addEventListener('submit', function (e) {
         g.restore();
       }
       var eye = g.createRadialGradient(-r * 0.04, -r * 0.04, 0, 0, 0, r * 0.26);
-      eye.addColorStop(0, '#f0c66c'); eye.addColorStop(1, '#8a5a18');
+      eye.addColorStop(0, '#a8823c'); eye.addColorStop(1, '#3a2408');
       g.fillStyle = eye; g.beginPath(); g.arc(0, 0, r * 0.24, 0, Math.PI * 2); g.fill();
       g.fillStyle = 'rgba(60,30,5,.45)';
       for (var d = 0; d < 40; d++) { var a = d * 2.4, rr = Math.sqrt(d) * r * 0.034; g.beginPath(); g.arc(Math.cos(a) * rr, Math.sin(a) * rr, Math.max(1, r * 0.012), 0, Math.PI * 2); g.fill(); }
       g.setTransform(1, 0, 0, 1, 0, 0);
-      varnish(g, w, h, 0.2, 0.5);
+      varnish(g, w, h, 0.12, 0.68);
     });
   }
 
@@ -481,7 +446,7 @@ document.getElementById('signup-form').addEventListener('submit', function (e) {
         g.fillStyle = 'rgba(255,255,255,.4)'; g.beginPath(); g.arc(x, y, s * 0.16, 0, Math.PI * 2); g.fill();
       }
       g.setTransform(1, 0, 0, 1, 0, 0);
-      varnish(g, w, h, 0.26, 0.6);
+      varnish(g, w, h, 0.14, 0.72);
     });
   }
 
@@ -496,12 +461,12 @@ document.getElementById('signup-form').addEventListener('submit', function (e) {
         g.beginPath(); g.moveTo(0, r * 0.15); g.lineTo(ex, ey); g.stroke();
         for (var d = 0; d < 16; d++) {
           var aa = R() * Math.PI * 2, rr = R() * r * 0.16;
-          g.fillStyle = ['#cfe0ef', '#a9c4e0', '#f2f4f6', '#8fb0d4'][Math.floor(R() * 4)];
+          g.fillStyle = ['#5d6b78', '#47586a', '#8a8f94', '#3b4a5c'][Math.floor(R() * 4)];
           g.beginPath(); g.arc(ex + Math.cos(aa) * rr, ey + Math.sin(aa) * rr * 0.6, Math.max(1, r * 0.035), 0, Math.PI * 2); g.fill();
         }
       }
       g.setTransform(1, 0, 0, 1, 0, 0);
-      varnish(g, w, h, 0.2, 0.5);
+      varnish(g, w, h, 0.12, 0.68);
     });
   }
 
@@ -525,7 +490,7 @@ document.getElementById('signup-form').addEventListener('submit', function (e) {
       g.beginPath(); g.moveTo(r * 0.05, 0); g.quadraticCurveTo(r, -r * 0.03, r * 1.95, 0); g.stroke();
       for (var v = 1; v < 7; v++) { var vx = v * r * 0.27; g.beginPath(); g.moveTo(vx, 0); g.lineTo(vx + r * 0.16, -r * 0.24); g.moveTo(vx, 0); g.lineTo(vx + r * 0.16, r * 0.24); g.stroke(); }
       g.setTransform(1, 0, 0, 1, 0, 0);
-      varnish(g, w, h, 0.16, 0.62);
+      varnish(g, w, h, 0.08, 0.75);
     });
   }
 
@@ -541,7 +506,7 @@ document.getElementById('signup-form').addEventListener('submit', function (e) {
   function paintBackdrop() {
     return sprite(W * DPR, H * DPR, function (g, w, h) {
       var bg = g.createLinearGradient(0, 0, 0, h);
-      bg.addColorStop(0, '#1b1e1c'); bg.addColorStop(0.78, '#151816'); bg.addColorStop(0.8, '#0f1110'); bg.addColorStop(1, '#0b0c0b');
+      bg.addColorStop(0, '#0f1110'); bg.addColorStop(0.78, '#0b0c0b'); bg.addColorStop(0.8, '#080908'); bg.addColorStop(1, '#050605');
       g.fillStyle = bg; g.fillRect(0, 0, w, h);
       // chalk smudges
       for (var k = 0; k < 90; k++) {
@@ -580,7 +545,7 @@ document.getElementById('signup-form').addEventListener('submit', function (e) {
       g.putImageData(img, 0, 0);
     });
     backdrop = paintBackdrop();
-    var dark = ['#2a3a2c', '#0e1712'], sage = ['#56684a', '#1c2a1e'], olive = ['#5d6a3f', '#222a14'];
+    var dark = ['#16201a', '#060a08'], sage = ['#2c3828', '#0c120c'], olive = ['#323a22', '#0e1208'];
     sprites = {
       peonyBlush: paintBloom(140 * U, PAL.blush, 'peony'),
       peonyIvory: paintBloom(150 * U, PAL.ivory, 'peony'),
@@ -593,12 +558,12 @@ document.getElementById('signup-form').addEventListener('submit', function (e) {
       roseInk: paintBloom(66 * U, PAL.ink, 'rose'),
       aster: paintAster(80 * U, PAL.mauve),
       asterPink: paintAster(62 * U, PAL.candy),
-      daisyRed: paintDaisy(52 * U, { deep: '#5a0c18', mid: '#b8243a', light: '#e2546a' }, 18, false),
-      chamomile: paintDaisy(40 * U, { deep: '#9a9088', mid: '#ece6dc', light: '#fffaf2' }, 16, false),
-      cosmos: paintDaisy(66 * U, { deep: '#5e2d79', mid: '#a77bd0', light: '#e7d6f7' }, 8, true),
-      cosmosPink: paintDaisy(52 * U, { deep: '#7a1d5a', mid: '#c0479a', light: '#f3b6dc' }, 8, true),
-      lilacBlue: paintLilac(115 * U, ['#56659f', '#7584c0', '#9eabde', '#c3ccef']),
-      lilacPurple: paintLilac(100 * U, ['#654a98', '#8f72c2', '#b9a0e2', '#dacbf6']),
+      daisyRed: paintDaisy(52 * U, { deep: '#1e0307', mid: '#5e0f1d', light: '#93303f' }, 18, false),
+      chamomile: paintDaisy(40 * U, { deep: '#3a342f', mid: '#958b7f', light: '#c9bfb1' }, 16, false),
+      cosmos: paintDaisy(66 * U, { deep: '#1f0f2b', mid: '#4f3466', light: '#8a6fa3' }, 8, true),
+      cosmosPink: paintDaisy(52 * U, { deep: '#2a0a20', mid: '#6a2350', light: '#a35b85' }, 8, true),
+      lilacBlue: paintLilac(115 * U, ['#1c2440', '#2f3a62', '#4a5684', '#6c78a2']),
+      lilacPurple: paintLilac(100 * U, ['#241935', '#3d2b58', '#5c4780', '#80699f']),
       lace: paintLace(70 * U),
       leafDark: paintLeaf(115 * U, dark, false), leafSage: paintLeaf(90 * U, sage, true), leafOlive: paintLeaf(100 * U, olive, true)
     };
@@ -634,7 +599,7 @@ document.getElementById('signup-form').addEventListener('submit', function (e) {
     petals = [];
     for (var p = 0; p < 16; p++) petals.push({ x: R(), y: R(), v: 0.016 + R() * 0.028, rot: R() * 6, vr: (R() - 0.5) * 1.5, k: Math.floor(R() * 5), sway: R() * 6 });
     flies = [];
-    for (var b = 0; b < 3; b++) flies.push({ x: 0.2 + R() * 0.6, y: 0.2 + R() * 0.5, ph: R() * 6, sp: 0.03 + R() * 0.03, c: ['#9fbcd9', '#eadcb8', '#cfa9dc'][b] });
+    for (var b = 0; b < 3; b++) flies.push({ x: 0.2 + R() * 0.6, y: 0.2 + R() * 0.5, ph: R() * 6, sp: 0.03 + R() * 0.03, c: ['#4a5a6e', '#6e6250', '#5c4866'][b] });
 
     grain = sprite(220, 220, function (g, w, h) {
       var img = g.createImageData(w, h);
@@ -658,7 +623,7 @@ document.getElementById('signup-form').addEventListener('submit', function (e) {
 
   function drawTendril(td, t) {
     var x = td.x * W, y = td.y * H, a = td.a + Math.sin(t * 0.5 + td.ph) * 0.12, step = td.len / 40;
-    ctx.strokeStyle = 'rgba(120,128,72,.75)'; ctx.lineWidth = Math.max(1, 2.2 * U); ctx.lineCap = 'round';
+    ctx.strokeStyle = 'rgba(70,74,40,.75)'; ctx.lineWidth = Math.max(1, 2.2 * U); ctx.lineCap = 'round';
     ctx.beginPath(); ctx.moveTo(x, y);
     for (var k = 0; k < 40; k++) {
       var u = k / 40;
@@ -678,7 +643,7 @@ document.getElementById('signup-form').addEventListener('submit', function (e) {
     // a slow, warm lamp light drifting across the room
     var lx = W * (0.32 + Math.sin(t * 0.05) * 0.14), ly = H * (0.3 + Math.cos(t * 0.04) * 0.1);
     var lamp = ctx.createRadialGradient(lx, ly, 0, lx, ly, Math.max(W, H) * 0.7);
-    lamp.addColorStop(0, 'rgba(90,70,50,.35)'); lamp.addColorStop(1, 'rgba(12,10,11,0)');
+    lamp.addColorStop(0, 'rgba(90,60,40,.22)'); lamp.addColorStop(1, 'rgba(12,10,11,0)');
     ctx.fillStyle = lamp; ctx.fillRect(0, 0, W, H);
 
     bouquets.forEach(function (bq, bi) {
@@ -694,11 +659,18 @@ document.getElementById('signup-form').addEventListener('submit', function (e) {
       ctx.restore();
     });
 
+    // chiaroscuro: keep a soft pool of light on each bouquet and sink everything else into shadow
+    ctx.save(); ctx.globalCompositeOperation = 'multiply';
+    var dk = ctx.createRadialGradient(W * 0.14, H * 0.82, 0, W * 0.14, H * 0.82, Math.max(W, H) * 0.7);
+    dk.addColorStop(0, 'rgba(255,255,255,1)'); dk.addColorStop(0.45, 'rgba(150,140,140,1)'); dk.addColorStop(1, 'rgba(70,64,66,1)');
+    ctx.fillStyle = dk; ctx.fillRect(0, 0, W, H);
+    ctx.restore();
+
     // falling petals
     petals.forEach(function (p) {
       if (!reduce) { p.y += p.v * 0.016; p.rot += p.vr * 0.016; if (p.y > 1.08) { p.y = -0.08; p.x = Math.random(); } }
       var x = p.x * W + Math.sin(t * 0.7 + p.sway) * 50, y = p.y * H;
-      ctx.save(); ctx.globalAlpha = 0.85; ctx.translate(x, y); ctx.rotate(p.rot); ctx.scale(1, Math.abs(Math.sin(t * 0.9 + p.sway)) * 0.7 + 0.3);
+      ctx.save(); ctx.globalAlpha = 0.7; ctx.translate(x, y); ctx.rotate(p.rot); ctx.scale(1, Math.abs(Math.sin(t * 0.9 + p.sway)) * 0.7 + 0.3);
       var s = sprites.petals[p.k], w = s.width / DPR, h = s.height / DPR; ctx.drawImage(s, -w / 2, -h / 2, w, h);
       ctx.restore();
     });
@@ -722,7 +694,7 @@ document.getElementById('signup-form').addEventListener('submit', function (e) {
     // canvas grain and a deep vignette, like an old varnished painting
     ctx.fillStyle = ctx.createPattern(grain, 'repeat'); ctx.fillRect(0, 0, W, H);
     var v = ctx.createRadialGradient(W / 2, H / 2, Math.min(W, H) * 0.3, W / 2, H / 2, Math.max(W, H) * 0.8);
-    v.addColorStop(0, 'rgba(10,9,9,0)'); v.addColorStop(1, 'rgba(5,4,4,.7)');
+    v.addColorStop(0, 'rgba(10,9,9,0)'); v.addColorStop(1, 'rgba(3,2,2,.85)');
     ctx.fillStyle = v; ctx.fillRect(0, 0, W, H);
 
     if (!reduce) requestAnimationFrame(frame);
