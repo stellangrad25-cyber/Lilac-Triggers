@@ -4,240 +4,163 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Lilac Triggers — Slow Blink</title>
-<meta name="description" content="Slow Blink, the debut album from Lilac Triggers. Atmospheric pop after dark.">
+<meta name="description" content="Slow Blink, the first album from Lilac Triggers. Out December 2026.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=Mr+Dafoe&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+SC:wght@500;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap">
 <style>
-/* Layout: cover-led album hero, then the band, shows and a sign-up. */
+/* Layout: a Dutch still life after dark. Painted bouquets spill in from the corners of a black room and move
+   gently behind the page; the album, video, music, band, shows and newsletter hang in gilded frames over them. */
 :root {
-  --ink: #0c080b;        /* warm black, biased toward the magenta */
-  --ink-2: #171016;
-  --bone: #efe6dc;       /* the paper white of the wordmark */
-  --dim: #8d8189;
-  --magenta: #ff2d7f;    /* the pink cover wash */
-  --red: #ec3a2c;        /* the brush-script LILAC */
-  --lilac: #b8a2dc;
-  --violet: #5a14eb;     /* the LILAC wordmark on the violet cover */
-  --line: rgba(239, 230, 220, .14);
+  --bg: #121412;          /* chalky green-black */
+  --fg: #f3ece4;          /* ivory */
+  --muted: #ab9e93;
+  --gold: #c9a45c;
+  --gold-hi: #f0d79a;
+  --gold-lo: #6f5424;
+  --rose: #d76a86;
+  --panel: rgba(14, 11, 12, .72);
+  --hair: rgba(201, 164, 92, .38);
 
-  --f-display: "Archivo", "Arial Black", Impact, sans-serif;
-  --f-body: "Archivo", "Helvetica Neue", Arial, sans-serif;
-  --f-crt: "IBM Plex Mono", ui-monospace, "Courier New", monospace;
-  --f-script: "Mr Dafoe", "Brush Script MT", cursive;
+  --f-display: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+  --f-caps: "Cormorant SC", "Iowan Old Style", Georgia, serif;
+  --f-body: "EB Garamond", Garamond, Georgia, serif;
 
+  --gutter: max(16px, 5vw);
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body {
-  margin: 0;
-  background: var(--ink);
-  color: var(--bone);
-  font: 400 1.0625rem/1.6 var(--f-body);
-  font-stretch: 100%;
-  -webkit-font-smoothing: antialiased;
-  position: relative;
-}
-/* Worn record sleeve: rubbed matte print, cardboard fibers, soft scuffs and film grain, scrolling with the page behind everything */
-body::before {
-  content: "";
-  position: absolute; inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background-image: url("assets/sleeve.png"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .92  0 0 0 0 .9  0 0 0 0 .88  .4 0 0 0 -.18'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 1024px 1024px, 240px 240px;
-  opacity: .9;
-}
+body { margin: 0; background: var(--bg); color: var(--fg); font: 400 1.14rem/1.6 var(--f-body); -webkit-font-smoothing: antialiased; }
 img { max-width: 100%; display: block; }
 a { color: inherit; }
-:focus-visible { outline: 2px solid var(--magenta); outline-offset: 3px; }
+:focus-visible { outline: 1px solid var(--gold-hi); outline-offset: 4px; }
 
-/* Scanlines over the whole page, like the cover art */
-body::after {
-  content: "";
-  position: fixed; inset: 0;
-  pointer-events: none;
-  background: repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0 2px, rgba(0,0,0,.08) 2px 3px);
-  mix-blend-mode: multiply;
-  z-index: 50;
-}
+/* The still life, fixed behind everything */
+#bloom { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; }
+.page { position: relative; z-index: 1; }
 
-.wrap { width: 100%; max-width: 72rem; margin-inline: auto; padding-inline: max(16px, 4vw); }
+.wrap { width: 100%; max-width: 72rem; margin-inline: auto; padding-inline: var(--gutter); }
+.caps { margin: 0; font: 600 .98rem/1.2 var(--f-caps); letter-spacing: .16em; color: var(--gold); }
+.shade { text-shadow: 0 2px 22px rgba(12, 10, 11, .95), 0 0 2px rgba(12, 10, 11, .9); }
+.fleuron { display: block; text-align: center; color: var(--gold); font-size: 1.4rem; line-height: 1; }
 
 /* ---------- Header ---------- */
-.top {
-  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 40;
-  background: color-mix(in srgb, var(--ink) 86%, transparent);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--line);
-}
-.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: .6rem; }
-/* Logo: the brush LILAC cut straight from the album cover, with TRIGGERS tucked under it in red, as on the sleeve */
-.mark { text-decoration: none; display: inline-grid; justify-items: end; line-height: 1; }
-.mark .l { width: 5.6rem; height: auto; }
-.mark .t { margin-top: -.8rem; font: 900 .86rem/1 var(--f-display); font-stretch: 125%; letter-spacing: .02em; color: var(--red); }
-footer .mark .l { width: 6.4rem; }
-footer .mark .t { font-size: 1rem; margin-top: -.9rem; }
-.top nav { display: flex; gap: 1.25rem; font: 500 0.83rem/1 var(--f-crt); letter-spacing: .06em; text-transform: uppercase; }
-.top nav a { text-decoration: none; color: var(--dim); }
-.top nav a:hover { color: var(--bone); }
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: linear-gradient(rgba(12, 10, 11, .9), rgba(12, 10, 11, 0)); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding-block: 1.1rem 1.7rem; }
+.name { font: 600 1.25rem/1 var(--f-caps); letter-spacing: .2em; text-decoration: none; white-space: nowrap; }
+.top nav { display: flex; gap: clamp(.9rem, 2.4vw, 1.9rem); font: 500 1rem/1 var(--f-caps); letter-spacing: .14em; }
+.top nav a { text-decoration: none; color: var(--muted); transition: color .25s; }
+.top nav a:hover { color: var(--gold-hi); }
 
 /* ---------- Hero ---------- */
-.hero { padding-block: clamp(2.5rem, 7vw, 6rem) clamp(3rem, 7vw, 5rem); position: relative; overflow: hidden;
-  /* ring wear where the record pressed through the sleeve, sitting behind the cover */
-  background: url("assets/ring-wear.png") no-repeat right -10rem top -10rem / min(64rem, 140vw); }
-.hero::before { /* magenta bloom behind the cover */
-  content: ""; position: absolute; width: 60rem; height: 60rem; right: -20rem; top: -18rem;
-  background: radial-gradient(closest-side, rgba(255,45,127,.2), rgba(90,20,235,.08) 60%, transparent);
-  pointer-events: none;
-}
-.hero .wrap { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; position: relative; }
+.hero { text-align: center; padding-block: clamp(2.5rem, 8vh, 5rem) clamp(4rem, 10vh, 7rem); }
+.hero h1 { margin: .5rem 0 0; font: 400 clamp(4.4rem, 14vw, 11.5rem)/.85 var(--f-display); letter-spacing: -.01em; }
+.hero h1 i { font-weight: 500; color: #f2c6cf; }
+.hero .lede { margin: 1.5rem auto 0; max-width: 30rem; font: italic 400 clamp(1.25rem, 2.2vw, 1.5rem)/1.45 var(--f-display); }
+.actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .8rem; margin-top: 2.2rem; }
+.btn { display: inline-flex; align-items: center; gap: .5rem; padding: .85rem 1.7rem; border: 1px solid var(--gold); background: rgba(12, 10, 11, .55); font: 600 1rem/1 var(--f-caps); letter-spacing: .16em; text-decoration: none; transition: background .25s, color .25s, border-color .25s; }
+.btn:hover { background: var(--gold); color: var(--bg); }
+.btn.primary { background: linear-gradient(180deg, var(--gold-hi), var(--gold) 55%, #a8843f); color: #1a1208; border-color: var(--gold-hi); }
+.btn.primary:hover { filter: brightness(1.1); }
 
-.eyebrow { font: 500 0.89rem/1 var(--f-crt); color: var(--lilac); letter-spacing: .08em; text-transform: uppercase; margin: 0 0 1.1rem; display: flex; align-items: center; gap: .6rem; }
-
-.title {
-  margin: 0;
-  font-family: var(--f-display);
-  font-weight: 900;
-  font-stretch: 125%;
-  text-transform: uppercase;
-  line-height: .86;
-  letter-spacing: -.02em;
-  font-size: clamp(3.4rem, 10.5vw, 8.5rem);
-}
-.title span { display: block; }
-.title .blink { position: relative; display: inline-block; color: var(--magenta); }
-/* The eyelids: two bars that close over BLINK, slowly */
-.title .blink::before, .title .blink::after {
-  content: ""; position: absolute; left: -2%; right: -2%; height: 51%;
-  background: var(--ink); transform: scaleY(0);
-  animation: lid 7s cubic-bezier(.7,0,.3,1) infinite;
-}
-.title .blink::before { top: 0; transform-origin: top; }
-.title .blink::after { bottom: 0; transform-origin: bottom; }
-@keyframes lid { 0%, 70%, 100% { transform: scaleY(0); } 80%, 86% { transform: scaleY(1); } }
-
-.lede { max-width: 34rem; margin: 1.6rem 0 0; color: var(--bone); opacity: .85; font-size: 1.15rem; text-wrap: pretty; }
-.status { margin: 1.4rem 0 0; font: 500 0.99rem/1.2 var(--f-crt); color: var(--dim); letter-spacing: .04em; }
-.status b { color: var(--bone); font-weight: 400; }
-
-.ctas { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; }
-.btn {
-  display: inline-flex; align-items: center; gap: .55rem;
-  padding: .9rem 1.35rem;
-  font: 800 .85rem/1 var(--f-display); font-stretch: 112%; letter-spacing: .14em; text-transform: uppercase;
-  text-decoration: none; color: var(--bone);
-  border: 1.5px solid var(--bone);
-  transition: background .2s, color .2s, transform .2s;
-}
-.btn:hover { background: var(--bone); color: var(--ink); }
-.btn.primary { background: var(--magenta); border-color: var(--magenta); color: var(--ink); }
-.btn.primary:hover { background: var(--bone); border-color: var(--bone); }
-
-/* Cover, mounted like a slightly mis-tracked VHS frame */
-.cover { position: relative; margin: 0; }
-.cover .frame { position: relative; aspect-ratio: 1 / 1; max-width: 100%; transform: rotate(-1.5deg); box-shadow: 0 30px 80px -20px rgba(255,45,127,.35), -24px -16px 90px -30px rgba(90,20,235,.5), 0 0 0 1px var(--line); }
-.cover img { width: 100%; height: 100%; object-fit: cover; }
-.cover .ghost { position: absolute; inset: 0; mix-blend-mode: screen; opacity: 0; transform: translateX(0); }
-.cover:hover .ghost { animation: track .9s steps(4) 1; }
-@keyframes track { 0% { opacity: .55; transform: translateX(6px); } 50% { opacity: .35; transform: translate(-4px, 2px); } 100% { opacity: 0; transform: none; } }
-.cover figcaption { margin-top: 1.1rem; font: 500 0.76rem/1.2 var(--f-crt); color: var(--dim); display: flex; justify-content: space-between; gap: 1rem; letter-spacing: .04em; }
-
-/* ---------- Ticker ---------- */
-.ticker { border-block: 1px solid var(--line); overflow: hidden; background: rgba(23,16,22,.55); }
-.ticker .row { display: flex; width: max-content; animation: scroll 38s linear infinite; }
-.ticker p { margin: 0; padding: .7rem 0; white-space: nowrap; font: 500 0.99rem/1 var(--f-crt); letter-spacing: .08em; text-transform: uppercase; color: var(--dim); }
-.ticker p i { font-style: normal; color: var(--magenta); padding-inline: 1.4rem; }
-@keyframes scroll { to { transform: translateX(-50%); } }
-
-/* ---------- Sections ---------- */
-section { padding-block: clamp(4rem, 9vw, 7rem); }
-.h2 { margin: 0 0 2.5rem; font: 900 clamp(2rem, 5vw, 3.4rem)/.95 var(--f-display); font-stretch: 125%; text-transform: uppercase; letter-spacing: -.01em; text-wrap: balance; }
-.h2 em { font: 400 1.25em/1 var(--f-script); color: var(--red); text-transform: none; letter-spacing: 0; margin-right: .1em; }
-
-
-/* About */
-/* Each member: photo, then their own career highlights underneath */
-.members { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(2.5rem, 6vw, 5rem); align-items: start; }
-.person { min-width: 0; }
-.person .photo { max-width: 24rem; }
-.member { margin: 0; min-width: 0; }
-/* Photo treatment: black and white, with faint scanlines and a vignette */
-.photo { position: relative; display: block; aspect-ratio: 4 / 5; max-width: 100%; overflow: hidden; border: 1px solid var(--line); box-shadow: 12px 12px 0 -1px rgba(239,230,220,.1); }
-.photo img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.1); transition: filter .4s; }
-.photo::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+/* Gilded frame: a carved gold moulding with a dark sight edge, used for the cover and the portraits */
+.frame { position: relative; margin: 0; padding: clamp(.7rem, 1.6vw, 1.1rem);
   background:
-    repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0 2px, rgba(0,0,0,.14) 2px 4px),
-    radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(12,8,11,.7));
-  }
-.member:hover .photo img { filter: grayscale(1) contrast(1.2) brightness(1.05); }
-.member figcaption { margin-top: 1.7rem; display: grid; gap: .2rem; font: 500 0.76rem/1.2 var(--f-crt); letter-spacing: .05em; text-transform: uppercase; color: var(--dim); }
-.member figcaption b { font: 900 clamp(1.5rem, 2.6vw, 2rem)/1 var(--f-display); font-stretch: 125%; letter-spacing: 0; color: var(--bone); }
-.about p { margin: 0 0 1.1rem; max-width: 36rem; color: rgba(239,230,220,.86); }
-/* Short bio under each photo, then the band's story across the full width */
-.bio { margin-top: 1.4rem; max-width: 34rem; }
-.bio p { margin: 0 0 .9rem; color: rgba(239,230,220,.86); }
-.story { margin-top: clamp(3rem, 6vw, 4.5rem); max-width: 46rem; }
-.story p { margin: 0 0 1.1rem; font-size: clamp(1.15rem, 1.8vw, 1.35rem); line-height: 1.5; color: var(--bone); }
-.about .for-fans { margin: 3.5rem 0 0; padding-top: 1.6rem; border-top: 1px dashed var(--line); max-width: 60rem; }
-.for-fans { margin-top: 1.8rem; font: 500 0.86rem/1.9 var(--f-crt); color: var(--lilac); letter-spacing: .04em; }
+    linear-gradient(135deg, var(--gold-hi) 0%, var(--gold) 18%, var(--gold-lo) 34%, var(--gold-hi) 50%, var(--gold) 66%, var(--gold-lo) 82%, var(--gold-hi) 100%);
+  box-shadow: inset 0 0 0 2px rgba(255, 240, 200, .35), inset 0 0 0 5px rgba(60, 40, 10, .6), 0 30px 70px -20px rgba(0, 0, 0, .9); }
+.frame::before { content: ""; position: absolute; inset: clamp(.35rem, .8vw, .55rem); border: 1px solid rgba(60, 40, 10, .7); pointer-events: none; }
+.frame img { width: 100%; height: auto; box-shadow: 0 0 0 2px rgba(30, 20, 5, .85), inset 0 0 30px rgba(0, 0, 0, .6); }
+.hero .frame { width: min(24rem, 78vw); margin: clamp(3rem, 8vh, 4.5rem) auto 0; }
+.hero .frame img { aspect-ratio: 1; object-fit: cover; }
+
+/* ---------- Rooms ---------- */
+section { padding-block: clamp(2.5rem, 6vw, 4.5rem); }
+.room { position: relative; background: var(--panel); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid var(--hair); padding: clamp(1.75rem, 5vw, 4rem); }
+.room::before { content: ""; position: absolute; inset: 7px; border: 1px solid rgba(201, 164, 92, .16); pointer-events: none; }
+.head { text-align: center; margin-bottom: clamp(1.75rem, 4vw, 2.75rem); }
+.head h2 { margin: .35rem 0 .5rem; font: 400 clamp(2.6rem, 6vw, 4.2rem)/1 var(--f-display); }
+.head h2 i { font-weight: 500; color: #f2c6cf; }
+
+/* Video */
+.video { position: relative; aspect-ratio: 16 / 9; max-width: 100%; overflow: hidden; background: #000; border: 1px solid var(--hair); }
+.video img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(.42) sepia(.15); }
+.video .play { position: absolute; inset: 0; display: grid; place-items: center; align-content: center; gap: 1rem; text-align: center; padding: 1rem; }
+.video .play span { width: clamp(4rem, 9vw, 6rem); aspect-ratio: 1; border-radius: 50%; border: 1px solid var(--gold); display: grid; place-items: center; }
+.video .play span::before { content: ""; margin-left: 12%; border-style: solid; border-width: .7rem 0 .7rem 1.15rem; border-color: transparent transparent transparent var(--gold-hi); }
+.video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+/* Listen */
+.platforms { list-style: none; margin: 0 auto; padding: 0; max-width: 46rem; border-top: 1px solid var(--hair); }
+.platforms a { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 1.15rem .25rem; border-bottom: 1px solid var(--hair); text-decoration: none; font: 400 clamp(1.7rem, 3.4vw, 2.4rem)/1.1 var(--f-display); transition: color .25s, padding .3s; }
+.platforms a span { font: 600 .95rem/1 var(--f-caps); letter-spacing: .14em; color: var(--muted); transition: color .25s; }
+.platforms a:hover { color: var(--gold-hi); padding-left: .8rem; }
+.platforms a:hover span { color: var(--gold-hi); }
+
+/* Band */
+.members { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(2.5rem, 6vw, 4.5rem); }
+.member { min-width: 0; text-align: center; }
+.member .frame { max-width: 21rem; margin-inline: auto; }
+.member .frame img { aspect-ratio: 4 / 5; object-fit: cover; filter: grayscale(1) contrast(1.05) sepia(.12); }
+.member h3 { margin: 1.5rem 0 .8rem; font: 400 clamp(2rem, 3.6vw, 2.7rem)/1 var(--f-display); }
+.member p { margin: 0 auto .8rem; max-width: 30rem; color: rgba(243, 236, 228, .86); }
+.story { margin-top: clamp(3rem, 7vw, 5rem); text-align: center; }
+.story p { margin: 0 auto 1.1rem; max-width: 44rem; font: 400 clamp(1.6rem, 3vw, 2.2rem)/1.3 var(--f-display); text-wrap: pretty; }
+.story p:last-child { font-style: italic; color: #f2c6cf; }
+.influences { margin-top: clamp(2.5rem, 6vw, 4rem); text-align: center; }
+.influences ul { list-style: none; margin: 1rem auto 0; padding: 0; max-width: 50rem; display: flex; flex-wrap: wrap; justify-content: center; gap: .3rem .9rem; font: italic 400 1.25rem/1.5 var(--f-display); }
+.influences li + li::before { content: "·"; margin-right: .9rem; color: var(--gold); }
 
 /* Shows */
-.shows { background: rgba(23,16,22,.55); border-block: 1px solid var(--line); }
-.empty { border: 1.5px dashed var(--line); padding: clamp(1.5rem, 4vw, 2.5rem); display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
-.empty p { margin: 0; font: 500 1.06rem/1.25 var(--f-crt); letter-spacing: .04em; max-width: 34rem; }
-.empty p span { color: var(--dim); }
+.empty { text-align: center; }
+.empty p { margin: 0 0 1.6rem; font: 400 clamp(1.5rem, 3vw, 2rem)/1.3 var(--f-display); }
+.empty p i { color: var(--muted); }
 
-/* Sign-up */
-.signup { position: relative; overflow: hidden; background: url("assets/ring-wear.png") no-repeat right -24rem center / 52rem; }
-.signup .wrap { max-width: 46rem; text-align: left; }
-.signup p.sub { margin: -1.2rem 0 2rem; color: rgba(239,230,220,.8); max-width: 34rem; }
-.form { display: flex; gap: .75rem; flex-wrap: wrap; }
+/* Newsletter */
+.signup .room { text-align: center; }
+.signup .sub { margin: 0 auto 2rem; max-width: 30rem; color: rgba(243, 236, 228, .82); }
+.form { display: flex; gap: .75rem; max-width: 34rem; margin-inline: auto; flex-wrap: wrap; }
 .form label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-.form input {
-  flex: 1 1 16rem; min-width: 0;
-  padding: .95rem 1rem; background: transparent; color: var(--bone);
-  border: 1.5px solid var(--bone); border-radius: 0;
-  font: 400 1rem/1 var(--f-crt); letter-spacing: .02em;
-}
-.form input::placeholder { color: var(--dim); }
+.form input { flex: 1 1 14rem; min-width: 0; padding: .85rem 1.1rem; border: 1px solid var(--hair); background: rgba(12, 10, 11, .6); color: var(--fg); font: 400 1.15rem/1.2 var(--f-body); }
+.form input::placeholder { color: var(--muted); }
+.form input:focus { outline: none; border-color: var(--gold-hi); }
 .form button { cursor: pointer; }
-.form-msg { margin: 1rem 0 0; font: 500 0.89rem/1.2 var(--f-crt); color: var(--magenta); letter-spacing: .04em; min-height: 1.4em; }
+.form-msg { margin: 1rem 0 0; min-height: 1.6em; color: var(--gold-hi); font-style: italic; }
 
 /* Footer */
-footer { border-top: 1px solid var(--line); padding-block: 2.5rem 3rem; }
+footer { padding-block: 2rem 3rem; }
 footer .wrap { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
-.socials { display: flex; gap: 1.25rem; flex-wrap: wrap; font: 500 0.86rem/1 var(--f-crt); letter-spacing: .06em; text-transform: uppercase; }
-.socials a { text-decoration: none; color: var(--dim); }
-.socials a:hover { color: var(--magenta); }
-.fine { font: 500 0.73rem/1 var(--f-crt); color: var(--dim); letter-spacing: .04em; }
+.socials { display: flex; flex-wrap: wrap; gap: 1.4rem; font: 500 1rem/1 var(--f-caps); letter-spacing: .14em; }
+.socials a { text-decoration: none; color: var(--muted); }
+.socials a:hover { color: var(--gold-hi); }
+.fine { margin: 0; font-size: .95rem; color: var(--muted); }
 
 /* ---------- Narrow screens ---------- */
 @media (max-width: 52rem) {
-  .hero .wrap, .about .wrap { grid-template-columns: minmax(0, 1fr); }
-  .hero .cover { order: -1; max-width: 30rem; }
   .members { grid-template-columns: minmax(0, 1fr); }
 }
-@media (max-width: 30rem) {
-  .top nav { gap: .9rem; font-size: 1.1rem; }
+@media (max-width: 34rem) {
   .top nav a.hide-sm { display: none; }
+  .name { font-size: 1.05rem; }
 }
-
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition: none !important; }
+  *, *::before, *::after { transition: none !important; }
   html { scroll-behavior: auto; }
 }
 </style>
 </head>
 <body>
 
+<canvas id="bloom" aria-hidden="true"></canvas>
+
+<div class="page">
 <header class="top">
   <div class="wrap">
-    <a class="mark" href="#top" aria-label="Lilac Triggers home"><img class="l" src="assets/lilac-wordmark.png" alt="" width="640" height="504"><span class="t" aria-hidden="true">TRIGGERS</span></a>
+    <a class="name shade" href="#top">Lilac Triggers</a>
     <nav aria-label="Main">
-      <a href="#top">Album</a>
-      <a href="#about" class="hide-sm">Band</a>
+      <a href="#video" class="hide-sm">Video</a>
+      <a href="#music">Listen</a>
+      <a href="#band">Band</a>
       <a href="#shows" class="hide-sm">Shows</a>
       <a href="#list">Join</a>
     </nav>
@@ -245,104 +168,121 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
 </header>
 
 <main id="top">
-  <!-- HERO -->
+  <!-- ALBUM -->
   <div class="hero">
     <div class="wrap">
-      <div>
-        <p class="eyebrow">New album · December 2026</p>
-        <h1 class="title"><span>Slow</span><span class="blink">Blink</span></h1>
-        <p class="lede">The first album from Lilac Triggers. 11 songs of atmospheric new wave, post-punk bliss.</p>
-        <p class="status">Release date: <b>December 2026</b></p>
-        <div class="ctas">
-          <!-- Swap these # links for your real pre-save / store URLs -->
-          <a class="btn primary" href="#" target="_blank" rel="noopener">Pre-save on Spotify</a>
-          <a class="btn" href="#" target="_blank" rel="noopener">Apple Music</a>
-          <a class="btn" href="#" target="_blank" rel="noopener">Bandcamp</a>
-        </div>
+      <p class="caps shade">The first album · December 2026</p>
+      <h1 class="shade"><i>Slow</i> Blink</h1>
+      <p class="lede shade">The first album from Lilac Triggers. 11 songs of atmospheric new wave, post-punk bliss.</p>
+      <div class="actions">
+        <!-- Swap these # links for the real pre-save / store URLs -->
+        <a class="btn primary" href="#" target="_blank" rel="noopener">Pre-save</a>
+        <a class="btn" href="#music">Listen</a>
       </div>
-
-      <figure class="cover">
-        <div class="frame">
-          <img src="assets/cover-pink.jpg" alt="Slow Blink album cover: a face in a hot-pink brushstroke with scanlines, under a white Lilac and red Triggers wordmark" width="1200" height="1200">
-          <img class="ghost" src="assets/cover-violet.jpg" alt="" aria-hidden="true">
-        </div>
-        <figcaption><span>Slow Blink · LP</span><span>December 2026</span></figcaption>
+      <figure class="frame">
+        <img src="assets/cover-pink.jpg" alt="Slow Blink album cover: a face in a hot-pink brushstroke with scanlines, under a white Lilac and red Triggers wordmark" width="1200" height="1200">
       </figure>
     </div>
   </div>
 
-  <div class="ticker" aria-hidden="true">
-    <div class="row">
-      <p>Slow Blink<i>✕</i>Lilac Triggers<i>✕</i>Atmospheric pop after dark<i>✕</i>Debut LP<i>✕</i>Out December 2026<i>✕</i>Slow Blink<i>✕</i>Lilac Triggers<i>✕</i>Atmospheric pop after dark<i>✕</i>Debut LP<i>✕</i>Out December 2026<i>✕</i></p>
-      <p>Slow Blink<i>✕</i>Lilac Triggers<i>✕</i>Atmospheric pop after dark<i>✕</i>Debut LP<i>✕</i>Out December 2026<i>✕</i>Slow Blink<i>✕</i>Lilac Triggers<i>✕</i>Atmospheric pop after dark<i>✕</i>Debut LP<i>✕</i>Out December 2026<i>✕</i></p>
-    </div>
-  </div>
-
-
-  <!-- ABOUT -->
-  <section id="about" class="about">
+  <!-- VIDEO: replace the placeholder with your YouTube embed, e.g.
+       <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="Lilac Triggers video" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe> -->
+  <section id="video">
     <div class="wrap">
-      <h2 class="h2"><em>the</em>Band</h2>
-      <div class="members">
-        <div class="person">
-          <figure class="member">
-            <span class="photo"><img src="assets/david-miller.jpg" alt="David Miller in a fedora and round sunglasses, taking a selfie in a dim pool hall" width="900" height="1125" loading="lazy"></span>
-            <figcaption><b>David Miller</b></figcaption>
-          </figure>
-          <div class="bio">
+      <div class="room">
+        <div class="head"><p class="caps">Coming soon</p><h2>The <i>video</i></h2><span class="fleuron" aria-hidden="true">❦</span></div>
+        <div class="video">
+          <img src="assets/cover-violet.jpg" alt="" loading="lazy">
+          <div class="play"><span aria-hidden="true"></span><p class="caps">The first video arrives with the album</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LISTEN: swap the # links for real URLs -->
+  <section id="music">
+    <div class="wrap">
+      <div class="room">
+        <div class="head"><p class="caps">Slow Blink · December 2026</p><h2><i>Listen</i></h2><span class="fleuron" aria-hidden="true">❦</span></div>
+        <ul class="platforms">
+          <li><a href="#" target="_blank" rel="noopener">Spotify <span>Pre-save →</span></a></li>
+          <li><a href="#" target="_blank" rel="noopener">Apple Music <span>Pre-add →</span></a></li>
+          <li><a href="#" target="_blank" rel="noopener">Bandcamp <span>Pre-order →</span></a></li>
+          <li><a href="#" target="_blank" rel="noopener">YouTube <span>Subscribe →</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- BAND -->
+  <section id="band">
+    <div class="wrap">
+      <div class="room">
+        <div class="head"><p class="caps">Naples, Florida</p><h2>The <i>band</i></h2><span class="fleuron" aria-hidden="true">❦</span></div>
+        <div class="members">
+          <article class="member">
+            <figure class="frame"><img src="assets/david-miller.jpg" alt="David Miller in a fedora and round sunglasses, taking a selfie in a dim pool hall" width="900" height="1125" loading="lazy"></figure>
+            <h3>David Miller</h3>
             <p>David was born and raised in Naples, Florida, and has spent the last 20 years writing and producing songs for his own projects and other notable artists. When he&rsquo;s not working on Lilac Triggers, he&rsquo;s behind the kit for other local musicians.</p>
             <p>He&rsquo;s also a die-hard fan of 80s new wave and post-punk.</p>
-          </div>
-        </div>
-        <div class="person">
-          <figure class="member">
-            <span class="photo"><img src="assets/jarrod-feintuch.jpg" alt="Jarrod Feintuch in a ball cap, glasses and a bomber jacket over a floral T-shirt" width="800" height="1000" loading="lazy"></span>
-            <figcaption><b>Jarrod Feintuch</b></figcaption>
-          </figure>
-          <div class="bio">
+          </article>
+          <article class="member">
+            <figure class="frame"><img src="assets/jarrod-feintuch.jpg" alt="Jarrod Feintuch in a ball cap, glasses and a bomber jacket over a floral T-shirt" width="800" height="1000" loading="lazy"></figure>
+            <h3>Jarrod Feintuch</h3>
             <p>Jarrod has been playing and performing in bands since 2001. Like David, the part he loves most about making music is the writing element.</p>
             <p>He moved down from Baltimore, and it didn&rsquo;t take long for the two of them to realize they were chasing the same sound.</p>
-          </div>
+          </article>
+        </div>
+
+        <div class="story">
+          <span class="fleuron" aria-hidden="true">❦</span>
+          <p>Lilac Triggers started with a simple complaint: the records we wanted to hear weren&rsquo;t being made anymore. So we started making them.</p>
+          <p>Cinematic soundscapes, pulsating drums, lush synth pads, glassy guitars, driving bass lines, and dramatic vocals.</p>
+        </div>
+
+        <div class="influences">
+          <p class="caps">Influences</p>
+          <ul>
+            <li>Icehouse</li><li>Tears for Fears</li><li>The Church</li><li>The Sound</li><li>New Order</li><li>Thompson Twins</li><li>The Smiths</li><li>Ariel Pink</li><li>The Cars</li><li>Duran Duran</li><li>Genesis</li><li>Ice Choir</li><li>Men I Trust</li><li>Roxy Music</li><li>Tamaryn</li>
+          </ul>
         </div>
       </div>
-      <div class="story">
-        <p>Lilac Triggers started with a simple complaint: the records we wanted to hear weren&rsquo;t being made anymore. So we started making them.</p>
-        <p>Cinematic soundscapes, pulsating drums, lush synth pads, glassy guitars, driving bass lines, and dramatic vocals.</p>
-      </div>
-      <p class="for-fans">Influences: Icehouse · Tears for Fears · The Church · The Sound · New Order · Thompson Twins · The Smiths · Ariel Pink · The Cars · Duran Duran · Genesis · Ice Choir · Men I Trust · Roxy Music · Tamaryn</p>
     </div>
   </section>
 
   <!-- SHOWS -->
-  <section id="shows" class="shows">
+  <section id="shows">
     <div class="wrap">
-      <h2 class="h2"><em>live</em>Shows</h2>
-      <div class="empty">
-        <p>No dates on the board yet.<br><span>Get on the list and you'll hear first.</span></p>
-        <a class="btn" href="#list">Get show alerts</a>
+      <div class="room">
+        <div class="head"><h2><i>Shows</i></h2><span class="fleuron" aria-hidden="true">❦</span></div>
+        <div class="empty">
+          <p>No dates yet. <i>Join the list to hear first.</i></p>
+          <a class="btn" href="#list">Get show alerts</a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- SIGN-UP -->
+  <!-- NEWSLETTER: hook this form up to your email tool (Mailchimp, Kit, etc.) -->
   <section id="list" class="signup">
     <div class="wrap">
-      <h2 class="h2"><em>stay</em>Tuned In</h2>
-      <p class="sub">Release news, early tickets and the occasional transmission from the studio. No spam.</p>
-      <!-- Hook this form up to your email tool (Mailchimp, ConvertKit, etc.) -->
-      <form class="form" id="signup-form" novalidate>
-        <label for="email">Email address</label>
-        <input id="email" name="email" type="email" placeholder="you@nightdrive.fm" autocomplete="email" required>
-        <button class="btn primary" type="submit">Join the list</button>
-      </form>
-      <p class="form-msg" id="form-msg" role="status" aria-live="polite"></p>
+      <div class="room">
+        <div class="head"><h2>Join the <i>list</i></h2><span class="fleuron" aria-hidden="true">❦</span></div>
+        <p class="sub">Release news, early tickets and the occasional note from the studio. No spam.</p>
+        <form class="form" id="signup-form" novalidate>
+          <label for="email">Email address</label>
+          <input id="email" name="email" type="email" placeholder="Your email" autocomplete="email" required>
+          <button class="btn primary" type="submit">Join</button>
+        </form>
+        <p class="form-msg" id="form-msg" role="status" aria-live="polite"></p>
+      </div>
     </div>
   </section>
 </main>
 
 <footer>
   <div class="wrap">
-    <a class="mark" href="#top" aria-label="Back to top"><img class="l" src="assets/lilac-wordmark.png" alt="" width="640" height="504" loading="lazy"><span class="t" aria-hidden="true">TRIGGERS</span></a>
+    <a class="name shade" href="#top">Lilac Triggers</a>
     <nav class="socials" aria-label="Social">
       <a href="#" target="_blank" rel="noopener">Instagram</a>
       <a href="#" target="_blank" rel="noopener">TikTok</a>
@@ -352,17 +292,449 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
     <p class="fine">© 2026 Lilac Triggers</p>
   </div>
 </footer>
+</div>
 
 <script>
-  document.getElementById('signup-form').addEventListener('submit', function (e) {
-    e.preventDefault();
-    var input = document.getElementById('email');
-    var msg = document.getElementById('form-msg');
-    var ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim());
-    if (!ok) { msg.textContent = '> Enter a valid email address, like name@example.com'; input.focus(); return; }
-    msg.textContent = '> Signal received. You\'re on the list.';
-    input.value = '';
-  });
+/* ---------- Newsletter form ---------- */
+document.getElementById('signup-form').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var input = document.getElementById('email');
+  var msg = document.getElementById('form-msg');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim())) {
+    msg.textContent = 'Enter a valid email address, like name@example.com.';
+    input.focus();
+    return;
+  }
+  msg.textContent = 'Thank you. You’re on the list.';
+  input.value = '';
+});
+
+/* ---------- The still life ----------
+   Every bloom (peony, rose, dahlia, aster, daisy, cosmos, lilac, lace, leaf) is painted once into its own sprite:
+   layered petals with brush striations, lit from the upper left, muted and given canvas tooth. Each frame those
+   sprites are arranged in two overflowing bouquets in front of a chalky backdrop and checkered floor. Bouquets sway
+   from their stems, heads breathe and turn, tendrils curl, petals fall and a few butterflies wander. */
+(function () {
+  var cvs = document.getElementById('bloom');
+  var ctx = cvs.getContext('2d');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var W, H, U, DPR, sprites, bouquets, petals, flies, tendrils, backdrop, grain, tooth;
+  var pointer = { x: 0.5, tx: 0.5 };
+
+  function rng(seed) { return function () { seed |= 0; seed = seed + 0x6D2B79F5 | 0; var t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  var R = rng(1702);
+
+  var PAL = {
+    blush:   { deep: '#6b1f38', mid: '#c97a8e', light: '#f2d6db' },
+    ivory:   { deep: '#6e6259', mid: '#d8ccc1', light: '#fbf4ec' },
+    crimson: { deep: '#330812', mid: '#8e1d36', light: '#d87487' },
+    candy:   { deep: '#9c1c46', mid: '#e7a0b3', light: '#fcebee' },
+    peach:   { deep: '#7d3532', mid: '#de9584', light: '#f7d7cb' },
+    coral:   { deep: '#8c2f2a', mid: '#ef8f74', light: '#fde0cf' },
+    mauve:   { deep: '#4e3a63', mid: '#a493c4', light: '#e2d8f1' },
+    ink:     { deep: '#0d1328', mid: '#28396a', light: '#7385b8' }
+  };
+
+  function sprite(w, h, draw) {
+    var c = document.createElement('canvas');
+    c.width = Math.max(2, Math.ceil(w)); c.height = Math.max(2, Math.ceil(h));
+    var g = c.getContext('2d'); draw(g, c.width, c.height); return c;
+  }
+  // Varnish pass: light from the upper left, shadow lower right and canvas tooth, all clipped to the paint
+  function varnish(g, w, h, hi, lo) {
+    g.globalCompositeOperation = 'source-atop';
+    var lg = g.createLinearGradient(0, 0, w, h);
+    lg.addColorStop(0, 'rgba(255,240,220,' + hi + ')'); lg.addColorStop(0.45, 'rgba(255,240,220,0)'); lg.addColorStop(1, 'rgba(8,5,6,' + lo + ')');
+    g.fillStyle = lg; g.fillRect(0, 0, w, h);
+    g.globalCompositeOperation = 'source-atop'; g.globalAlpha = 0.09; g.fillStyle = g.createPattern(tooth, 'repeat'); g.fillRect(0, 0, w, h);
+    g.globalAlpha = 1; g.globalCompositeOperation = 'source-over';
+  }
+  function cupPetal(g, L, w, ruff) {
+    g.beginPath(); g.moveTo(0, 0);
+    g.bezierCurveTo(w * 0.9, -L * 0.15, w, -L * 0.75, w * 0.45, -L * 0.97);
+    g.quadraticCurveTo(w * 0.25, -L * (1 + ruff), 0, -L * 0.94);
+    g.quadraticCurveTo(-w * 0.25, -L * (1 + ruff), -w * 0.45, -L * 0.97);
+    g.bezierCurveTo(-w, -L * 0.75, -w * 0.9, -L * 0.15, 0, 0);
+    g.closePath();
+  }
+  function pointPetal(g, L, w) {
+    g.beginPath(); g.moveTo(0, 0);
+    g.bezierCurveTo(w * 0.8, -L * 0.25, w * 0.7, -L * 0.75, 0, -L);
+    g.bezierCurveTo(-w * 0.7, -L * 0.75, -w * 0.8, -L * 0.25, 0, 0);
+    g.closePath();
+  }
+  // Brush striations running from the base of a petal toward its edge
+  function strokes(g, L, w, n, a) {
+    g.save(); g.clip();
+    g.lineWidth = Math.max(1, L * 0.012);
+    for (var k = 0; k < n; k++) {
+      var x = (R() - 0.5) * w * 1.4;
+      g.strokeStyle = R() < 0.5 ? 'rgba(255,248,240,' + a + ')' : 'rgba(40,10,20,' + a + ')';
+      g.beginPath(); g.moveTo(x * 0.2, -L * 0.05); g.quadraticCurveTo(x, -L * 0.5, x * 1.1, -L * (0.85 + R() * 0.2)); g.stroke();
+    }
+    g.restore();
+  }
+  function grad(g, L, pal, from) {
+    var pg = g.createRadialGradient(0, -L * (from || 0.15), L * 0.05, 0, -L * 0.3, L * 0.95);
+    pg.addColorStop(0, pal.deep); pg.addColorStop(0.5, pal.mid); pg.addColorStop(1, pal.light);
+    return pg;
+  }
+
+  // Peony, rose or dahlia: rings of petals, each ring shadowed beneath the next
+  function paintBloom(size, pal, kind) {
+    var r = size * DPR;
+    return sprite(r * 2.4, r * 2.4, function (g, w, h) {
+      g.translate(w / 2, h / 2); g.scale(1, 0.86);
+      var rings = kind === 'rose'
+        ? [[12, 1, .42, .1], [10, .84, .4, .08], [9, .68, .36, .06], [8, .52, .32, .05], [7, .38, .28, .04], [6, .26, .22, .03]]
+        : kind === 'dahlia'
+        ? [[18, 1, .2], [16, .86, .19], [15, .72, .18], [13, .58, .17], [11, .45, .15], [9, .32, .13], [7, .2, .11]]
+        : [[11, 1, .56, .16], [10, .86, .52, .14], [9, .72, .48, .14], [8, .58, .42, .12], [7, .44, .36, .1], [6, .3, .3, .08], [5, .18, .24, .06]];
+      rings.forEach(function (ring, ri) {
+        var sh = g.createRadialGradient(0, 0, 0, 0, 0, r * ring[1]);
+        sh.addColorStop(0, 'rgba(20,4,10,.5)'); sh.addColorStop(1, 'rgba(20,4,10,0)');
+        g.fillStyle = sh; g.beginPath(); g.arc(0, 0, r * ring[1], 0, Math.PI * 2); g.fill();
+        var n = ring[0], off = ri * 0.37 + R() * 0.3;
+        for (var j = 0; j < n; j++) {
+          g.save(); g.rotate(j / n * Math.PI * 2 + off + (R() - 0.5) * 0.18);
+          var L = r * ring[1] * (0.9 + R() * 0.15), pw = r * ring[2] * (0.85 + R() * 0.3);
+          g.fillStyle = grad(g, L, pal, kind === 'dahlia' ? 0.05 : 0.15);
+          if (kind === 'dahlia') pointPetal(g, L, pw); else cupPetal(g, L, pw, ring[3]);
+          g.fill();
+          g.strokeStyle = 'rgba(255,250,245,.18)'; g.lineWidth = Math.max(1, r * 0.007); g.stroke();
+          strokes(g, L, pw, 5, 0.08);
+          g.restore();
+        }
+      });
+      if (kind === 'rose') {
+        g.strokeStyle = pal.deep; g.globalAlpha = 0.5; g.lineWidth = Math.max(1, r * 0.018);
+        for (var k = 0; k < 7; k++) { g.beginPath(); g.arc(0, 0, r * (0.16 - k * 0.02), k * 1.3, k * 1.3 + 3.6); g.stroke(); }
+        g.globalAlpha = 1;
+      } else if (kind === 'peony') {
+        g.fillStyle = '#d9b25e';
+        for (var d = 0; d < 26; d++) { var a = d * 2.4, rr = Math.sqrt(d) * r * 0.022; g.beginPath(); g.arc(Math.cos(a) * rr, Math.sin(a) * rr - r * 0.02, Math.max(1, r * 0.014), 0, Math.PI * 2); g.fill(); }
+      }
+      g.setTransform(1, 0, 0, 1, 0, 0);
+      varnish(g, w, h, 0.24, 0.58);
+    });
+  }
+
+  // Aster: a pompom of fine needle petals
+  function paintAster(size, pal) {
+    var r = size * DPR;
+    return sprite(r * 2.3, r * 2.3, function (g, w, h) {
+      g.translate(w / 2, h / 2); g.scale(1, 0.9); g.lineCap = 'round';
+      for (var ring = 0; ring < 4; ring++) {
+        var n = 70 - ring * 12, L = r * (1 - ring * 0.2);
+        for (var j = 0; j < n; j++) {
+          var a = j / n * Math.PI * 2 + R() * 0.1, l = L * (0.8 + R() * 0.25);
+          g.strokeStyle = [pal.deep, pal.mid, pal.light][Math.min(2, Math.floor(R() * 2.2) + (ring > 1 ? 0 : 1))];
+          g.lineWidth = Math.max(1, r * 0.035);
+          g.beginPath(); g.moveTo(Math.cos(a) * l * 0.15, Math.sin(a) * l * 0.15); g.lineTo(Math.cos(a) * l, Math.sin(a) * l); g.stroke();
+        }
+      }
+      g.setTransform(1, 0, 0, 1, 0, 0);
+      varnish(g, w, h, 0.22, 0.55);
+    });
+  }
+
+  // Daisy or cosmos: one ring of long petals around a golden eye
+  function paintDaisy(size, pal, petals, notched) {
+    var r = size * DPR;
+    return sprite(r * 2.3, r * 2.3, function (g, w, h) {
+      g.translate(w / 2, h / 2); g.scale(1, 0.88);
+      for (var j = 0; j < petals; j++) {
+        g.save(); g.rotate(j / petals * Math.PI * 2 + (R() - 0.5) * 0.15);
+        var L = r * (0.88 + R() * 0.15), pw = r * (notched ? 0.26 : 0.14);
+        var pg = g.createLinearGradient(0, 0, 0, -L);
+        pg.addColorStop(0, pal.deep); pg.addColorStop(0.35, pal.mid); pg.addColorStop(1, pal.light);
+        g.fillStyle = pg;
+        g.beginPath(); g.moveTo(0, 0);
+        g.bezierCurveTo(pw, -L * 0.3, pw * 1.1, -L * 0.85, pw * 0.7, -L);
+        if (notched) { g.lineTo(pw * 0.25, -L * 0.93); g.lineTo(0, -L); g.lineTo(-pw * 0.25, -L * 0.93); }
+        g.lineTo(-pw * 0.7, -L);
+        g.bezierCurveTo(-pw * 1.1, -L * 0.85, -pw, -L * 0.3, 0, 0); g.fill();
+        strokes(g, L, pw, 3, 0.1);
+        g.restore();
+      }
+      var eye = g.createRadialGradient(-r * 0.04, -r * 0.04, 0, 0, 0, r * 0.26);
+      eye.addColorStop(0, '#f0c66c'); eye.addColorStop(1, '#8a5a18');
+      g.fillStyle = eye; g.beginPath(); g.arc(0, 0, r * 0.24, 0, Math.PI * 2); g.fill();
+      g.fillStyle = 'rgba(60,30,5,.45)';
+      for (var d = 0; d < 40; d++) { var a = d * 2.4, rr = Math.sqrt(d) * r * 0.034; g.beginPath(); g.arc(Math.cos(a) * rr, Math.sin(a) * rr, Math.max(1, r * 0.012), 0, Math.PI * 2); g.fill(); }
+      g.setTransform(1, 0, 0, 1, 0, 0);
+      varnish(g, w, h, 0.2, 0.5);
+    });
+  }
+
+  // Lilac: a tapering cone of four-petalled florets
+  function paintLilac(size, cols) {
+    var r = size * DPR;
+    return sprite(r * 1.5, r * 2.6, function (g, w, h) {
+      g.translate(w / 2, h - r * 0.1);
+      for (var k = 0; k < 190; k++) {
+        var v = Math.pow(R(), 0.9), half = Math.pow(1 - v, 0.75) * r * 0.62;
+        var x = (R() * 2 - 1) * half, y = -v * r * 2.4;
+        var s = r * (0.07 + R() * 0.04) * (1 - v * 0.4);
+        g.fillStyle = cols[Math.floor(R() * cols.length)];
+        for (var p = 0; p < 4; p++) { g.beginPath(); g.ellipse(x + Math.cos(p * Math.PI / 2) * s * 0.55, y + Math.sin(p * Math.PI / 2) * s * 0.55, s * 0.6, s * 0.4, p * Math.PI / 2, 0, Math.PI * 2); g.fill(); }
+        g.fillStyle = 'rgba(255,255,255,.4)'; g.beginPath(); g.arc(x, y, s * 0.16, 0, Math.PI * 2); g.fill();
+      }
+      g.setTransform(1, 0, 0, 1, 0, 0);
+      varnish(g, w, h, 0.26, 0.6);
+    });
+  }
+
+  // Queen Anne's lace: a dome of tiny pale-blue florets on fine rays
+  function paintLace(size) {
+    var r = size * DPR;
+    return sprite(r * 2.2, r * 1.6, function (g, w, h) {
+      g.translate(w / 2, h * 0.8);
+      g.strokeStyle = 'rgba(160,170,120,.6)'; g.lineWidth = Math.max(1, r * 0.012);
+      for (var k = 0; k < 16; k++) {
+        var a = -Math.PI / 2 + (k / 15 - 0.5) * 2.2, ex = Math.cos(a) * r * 0.8, ey = Math.sin(a) * r * 0.6;
+        g.beginPath(); g.moveTo(0, r * 0.15); g.lineTo(ex, ey); g.stroke();
+        for (var d = 0; d < 16; d++) {
+          var aa = R() * Math.PI * 2, rr = R() * r * 0.16;
+          g.fillStyle = ['#cfe0ef', '#a9c4e0', '#f2f4f6', '#8fb0d4'][Math.floor(R() * 4)];
+          g.beginPath(); g.arc(ex + Math.cos(aa) * rr, ey + Math.sin(aa) * rr * 0.6, Math.max(1, r * 0.035), 0, Math.PI * 2); g.fill();
+        }
+      }
+      g.setTransform(1, 0, 0, 1, 0, 0);
+      varnish(g, w, h, 0.2, 0.5);
+    });
+  }
+
+  function paintLeaf(size, tone, serrated) {
+    var r = size * DPR;
+    return sprite(r * 2.1, r * 0.95, function (g, w, h) {
+      g.translate(r * 0.05, h / 2);
+      var lg = g.createLinearGradient(0, -h / 2, 0, h / 2);
+      lg.addColorStop(0, tone[0]); lg.addColorStop(1, tone[1]);
+      g.fillStyle = lg;
+      g.beginPath(); g.moveTo(0, 0);
+      if (serrated) {
+        for (var k = 0; k <= 14; k++) { var x = k / 14 * r * 2, y = -Math.sin(Math.PI * k / 14) * r * 0.42 * (k % 2 ? 1 : 0.86); g.lineTo(x, y); }
+        for (var k2 = 14; k2 >= 0; k2--) { var x2 = k2 / 14 * r * 2, y2 = Math.sin(Math.PI * k2 / 14) * r * 0.42 * (k2 % 2 ? 1 : 0.86); g.lineTo(x2, y2); }
+      } else {
+        g.bezierCurveTo(r * 0.5, -r * 0.42, r * 1.4, -r * 0.4, r * 2, 0);
+        g.bezierCurveTo(r * 1.4, r * 0.38, r * 0.5, r * 0.4, 0, 0);
+      }
+      g.fill();
+      g.strokeStyle = 'rgba(225,235,205,.2)'; g.lineWidth = Math.max(1, r * 0.02);
+      g.beginPath(); g.moveTo(r * 0.05, 0); g.quadraticCurveTo(r, -r * 0.03, r * 1.95, 0); g.stroke();
+      for (var v = 1; v < 7; v++) { var vx = v * r * 0.27; g.beginPath(); g.moveTo(vx, 0); g.lineTo(vx + r * 0.16, -r * 0.24); g.moveTo(vx, 0); g.lineTo(vx + r * 0.16, r * 0.24); g.stroke(); }
+      g.setTransform(1, 0, 0, 1, 0, 0);
+      varnish(g, w, h, 0.16, 0.62);
+    });
+  }
+
+  function paintPetal(size, pal) {
+    var r = size * DPR;
+    return sprite(r * 1.2, r * 1.2, function (g, w, h) {
+      g.translate(w / 2, h * 0.92);
+      g.fillStyle = grad(g, r, pal, 0.2); cupPetal(g, r, r * 0.5, 0.12); g.fill();
+    });
+  }
+
+  // Chalky backdrop and a faint checkered floor, painted once per size
+  function paintBackdrop() {
+    return sprite(W * DPR, H * DPR, function (g, w, h) {
+      var bg = g.createLinearGradient(0, 0, 0, h);
+      bg.addColorStop(0, '#1b1e1c'); bg.addColorStop(0.78, '#151816'); bg.addColorStop(0.8, '#0f1110'); bg.addColorStop(1, '#0b0c0b');
+      g.fillStyle = bg; g.fillRect(0, 0, w, h);
+      // chalk smudges
+      for (var k = 0; k < 90; k++) {
+        var x = R() * w, y = R() * h * 0.8, rr = (40 + R() * 220) * DPR;
+        var sm = g.createRadialGradient(x, y, 0, x, y, rr);
+        sm.addColorStop(0, 'rgba(190,200,190,' + (0.015 + R() * 0.03) + ')'); sm.addColorStop(1, 'rgba(190,200,190,0)');
+        g.fillStyle = sm; g.fillRect(x - rr, y - rr, rr * 2, rr * 2);
+      }
+      g.strokeStyle = 'rgba(200,210,200,.035)'; g.lineCap = 'round';
+      for (var s = 0; s < 120; s++) {
+        var sx = R() * w, sy = R() * h * 0.8, len = (30 + R() * 140) * DPR, a = (R() - 0.5) * 0.6;
+        g.lineWidth = (2 + R() * 10) * DPR;
+        g.beginPath(); g.moveTo(sx, sy); g.lineTo(sx + Math.cos(a) * len, sy + Math.sin(a) * len); g.stroke();
+      }
+      // checkered floor in perspective
+      var horizon = h * 0.8, vx = w / 2, rows = 6, cols = 18;
+      for (var row = 0; row < rows; row++) {
+        var y0 = horizon + (h - horizon) * Math.pow(row / rows, 1.6), y1 = horizon + (h - horizon) * Math.pow((row + 1) / rows, 1.6);
+        for (var c = -cols / 2; c < cols / 2; c++) {
+          if ((row + c) % 2 === 0) continue;
+          var spread0 = 0.6 + row / rows * 0.9, spread1 = 0.6 + (row + 1) / rows * 0.9;
+          var cw0 = w / cols * spread0, cw1 = w / cols * spread1;
+          g.fillStyle = 'rgba(150,175,175,' + (0.035 + R() * 0.03) + ')';
+          g.beginPath(); g.moveTo(vx + c * cw0, y0); g.lineTo(vx + (c + 1) * cw0, y0); g.lineTo(vx + (c + 1) * cw1, y1); g.lineTo(vx + c * cw1, y1); g.closePath(); g.fill();
+        }
+      }
+    });
+  }
+
+  function build() {
+    R = rng(1702);
+    U = Math.max(0.42, Math.min(W * 0.95, H * 1.25) / 1000);
+    tooth = sprite(160, 160, function (g, w, h) {
+      var img = g.createImageData(w, h);
+      for (var i = 0; i < img.data.length; i += 4) { var v = R() * 255; img.data[i] = img.data[i + 1] = img.data[i + 2] = v; img.data[i + 3] = 255; }
+      g.putImageData(img, 0, 0);
+    });
+    backdrop = paintBackdrop();
+    var dark = ['#2a3a2c', '#0e1712'], sage = ['#56684a', '#1c2a1e'], olive = ['#5d6a3f', '#222a14'];
+    sprites = {
+      peonyBlush: paintBloom(140 * U, PAL.blush, 'peony'),
+      peonyIvory: paintBloom(150 * U, PAL.ivory, 'peony'),
+      peonyCandy: paintBloom(120 * U, PAL.candy, 'peony'),
+      dahliaCoral: paintBloom(115 * U, PAL.coral, 'dahlia'),
+      dahliaPeach: paintBloom(100 * U, PAL.peach, 'dahlia'),
+      roseCrimson: paintBloom(80 * U, PAL.crimson, 'rose'),
+      rosePeach: paintBloom(100 * U, PAL.peach, 'rose'),
+      roseIvory: paintBloom(88 * U, PAL.ivory, 'rose'),
+      roseInk: paintBloom(66 * U, PAL.ink, 'rose'),
+      aster: paintAster(80 * U, PAL.mauve),
+      asterPink: paintAster(62 * U, PAL.candy),
+      daisyRed: paintDaisy(52 * U, { deep: '#5a0c18', mid: '#b8243a', light: '#e2546a' }, 18, false),
+      chamomile: paintDaisy(40 * U, { deep: '#9a9088', mid: '#ece6dc', light: '#fffaf2' }, 16, false),
+      cosmos: paintDaisy(66 * U, { deep: '#5e2d79', mid: '#a77bd0', light: '#e7d6f7' }, 8, true),
+      cosmosPink: paintDaisy(52 * U, { deep: '#7a1d5a', mid: '#c0479a', light: '#f3b6dc' }, 8, true),
+      lilacBlue: paintLilac(115 * U, ['#56659f', '#7584c0', '#9eabde', '#c3ccef']),
+      lilacPurple: paintLilac(100 * U, ['#654a98', '#8f72c2', '#b9a0e2', '#dacbf6']),
+      lace: paintLace(70 * U),
+      leafDark: paintLeaf(115 * U, dark, false), leafSage: paintLeaf(90 * U, sage, true), leafOlive: paintLeaf(100 * U, olive, true)
+    };
+    sprites.petals = [PAL.blush, PAL.ivory, PAL.candy, PAL.peach, PAL.coral].map(function (p) { return paintPetal(18 * U, p); });
+
+    // Bouquet A spills up from the lower left; bouquet B hangs from the upper right. Positions are fractions of the screen.
+    function item(s, x, y, rot, br) { return { s: s, x: x, y: y, rot: rot, ph: R() * 6, sp: 0.4 + R() * 0.4, br: br === undefined ? 0.025 : br }; }
+    var leaf = function (s, x, y, rot) { return item(s, x, y, rot, 0); };
+    bouquets = [
+      { px: 0.12, py: 1.15, amp: 0.012, sp: 0.32, ph: 0, items: [
+        leaf('leafOlive', 0.0, 0.52, -2.0), leaf('leafDark', 0.02, 0.62, -2.3), leaf('leafSage', 0.25, 0.72, -0.6), leaf('leafDark', 0.31, 0.93, -0.2),
+        leaf('leafSage', -0.02, 0.86, -2.8), leaf('leafOlive', 0.13, 0.6, -1.4), leaf('leafSage', 0.19, 0.55, -1.9),
+        item('lilacBlue', 0.06, 0.6, -0.45), item('lilacPurple', 0.21, 0.66, 0.25), item('lace', 0.14, 0.56, -0.1),
+        item('cosmos', 0.28, 0.63, 0.2), item('cosmosPink', 0.01, 0.66, 0), item('chamomile', 0.24, 0.55, 0.3),
+        item('aster', 0.11, 0.73, 0.2), item('dahliaCoral', 0.02, 0.78, 0.4), item('daisyRed', 0.2, 0.76, -0.2),
+        item('rosePeach', 0.06, 0.92, 0.3), item('peonyIvory', 0.17, 0.88, -0.1), item('asterPink', 0.29, 0.8, 0),
+        item('peonyCandy', 0.28, 0.99, 0.4), item('roseCrimson', 0.01, 1.0, 0), item('chamomile', 0.33, 0.9, -0.3)
+      ]},
+      { px: 0.92, py: -0.2, amp: 0.01, sp: 0.27, ph: 2, items: [
+        leaf('leafDark', 0.73, 0.13, 2.6), leaf('leafSage', 0.99, 0.44, 1.2), leaf('leafOlive', 0.8, 0.36, 2.2), leaf('leafSage', 0.71, 0.02, 3.0),
+        item('lilacBlue', 0.75, 0.19, 3.6), item('lace', 0.72, 0.3, 2.9), item('cosmos', 0.75, 0.38, 0.6), item('cosmosPink', 0.99, 0.52, 0.2),
+        item('roseInk', 0.82, 0.04, 0.2), item('dahliaPeach', 0.98, 0.06, 0.5), item('aster', 0.8, 0.26, 0),
+        item('peonyBlush', 0.88, 0.19, 0.2), item('daisyRed', 0.79, 0.12, 0.4), item('roseIvory', 0.97, 0.34, -0.3), item('chamomile', 0.88, 0.4, 0.2)
+      ]}
+    ];
+
+    // Curling tendrils that reach out of each bouquet
+    tendrils = [];
+    [[0.18, 0.56, -1.3], [0.3, 0.6, -0.5], [0.05, 0.5, -1.9], [0.76, 0.36, 2.2], [0.84, 0.42, 1.8], [0.71, 0.22, 2.8]].forEach(function (t) {
+      tendrils.push({ x: t[0], y: t[1], a: t[2], len: (110 + R() * 120) * U, curl: 0.9 + R() * 0.8, ph: R() * 6 });
+    });
+
+    petals = [];
+    for (var p = 0; p < 16; p++) petals.push({ x: R(), y: R(), v: 0.016 + R() * 0.028, rot: R() * 6, vr: (R() - 0.5) * 1.5, k: Math.floor(R() * 5), sway: R() * 6 });
+    flies = [];
+    for (var b = 0; b < 3; b++) flies.push({ x: 0.2 + R() * 0.6, y: 0.2 + R() * 0.5, ph: R() * 6, sp: 0.03 + R() * 0.03, c: ['#9fbcd9', '#eadcb8', '#cfa9dc'][b] });
+
+    grain = sprite(220, 220, function (g, w, h) {
+      var img = g.createImageData(w, h);
+      for (var i = 0; i < img.data.length; i += 4) { var v = R() * 255; img.data[i] = img.data[i + 1] = img.data[i + 2] = v; img.data[i + 3] = 14; }
+      g.putImageData(img, 0, 0);
+    });
+  }
+
+  function resize() {
+    DPR = Math.min(window.devicePixelRatio || 1, 1.5);
+    W = window.innerWidth; H = window.innerHeight;
+    cvs.width = Math.round(W * DPR); cvs.height = Math.round(H * DPR);
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    build();
+  }
+
+  function place(spr, x, y, rot, scale) {
+    var w = spr.width / DPR * scale, h = spr.height / DPR * scale;
+    ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.drawImage(spr, -w / 2, -h / 2, w, h); ctx.restore();
+  }
+
+  function drawTendril(td, t) {
+    var x = td.x * W, y = td.y * H, a = td.a + Math.sin(t * 0.5 + td.ph) * 0.12, step = td.len / 40;
+    ctx.strokeStyle = 'rgba(120,128,72,.75)'; ctx.lineWidth = Math.max(1, 2.2 * U); ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.moveTo(x, y);
+    for (var k = 0; k < 40; k++) {
+      var u = k / 40;
+      a += (u > 0.65 ? td.curl * 0.3 : 0.02) * (1 + Math.sin(t * 0.8 + td.ph) * 0.15);
+      x += Math.cos(a) * step * (1 - u * 0.6); y += Math.sin(a) * step * (1 - u * 0.6);
+      ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+  }
+
+  function frame(now) {
+    var t = now / 1000;
+    pointer.x += (pointer.tx - pointer.x) * 0.03;
+    var sy = window.scrollY || 0;
+
+    ctx.drawImage(backdrop, 0, 0, W, H);
+    // a slow, warm lamp light drifting across the room
+    var lx = W * (0.32 + Math.sin(t * 0.05) * 0.14), ly = H * (0.3 + Math.cos(t * 0.04) * 0.1);
+    var lamp = ctx.createRadialGradient(lx, ly, 0, lx, ly, Math.max(W, H) * 0.7);
+    lamp.addColorStop(0, 'rgba(90,70,50,.35)'); lamp.addColorStop(1, 'rgba(12,10,11,0)');
+    ctx.fillStyle = lamp; ctx.fillRect(0, 0, W, H);
+
+    bouquets.forEach(function (bq, bi) {
+      var px = bq.px * W, py = bq.py * H;
+      var sway = Math.sin(t * bq.sp + bq.ph) * bq.amp + (pointer.x - 0.5) * 0.012;
+      ctx.save(); ctx.translate(px, py - sy * 0.04); ctx.rotate(sway); ctx.translate(-px, -py);
+      tendrils.forEach(function (td) { if ((td.x < 0.5) === (bi === 0)) drawTendril(td, t); });
+      bq.items.forEach(function (it) {
+        var rot = it.rot + Math.sin(t * it.sp + it.ph) * 0.04;
+        var sc = 1 + Math.sin(t * it.sp * 0.8 + it.ph) * it.br;
+        place(sprites[it.s], it.x * W, it.y * H, rot, sc);
+      });
+      ctx.restore();
+    });
+
+    // falling petals
+    petals.forEach(function (p) {
+      if (!reduce) { p.y += p.v * 0.016; p.rot += p.vr * 0.016; if (p.y > 1.08) { p.y = -0.08; p.x = Math.random(); } }
+      var x = p.x * W + Math.sin(t * 0.7 + p.sway) * 50, y = p.y * H;
+      ctx.save(); ctx.globalAlpha = 0.85; ctx.translate(x, y); ctx.rotate(p.rot); ctx.scale(1, Math.abs(Math.sin(t * 0.9 + p.sway)) * 0.7 + 0.3);
+      var s = sprites.petals[p.k], w = s.width / DPR, h = s.height / DPR; ctx.drawImage(s, -w / 2, -h / 2, w, h);
+      ctx.restore();
+    });
+
+    // butterflies wander between the bouquets
+    flies.forEach(function (f) {
+      var x = (f.x + Math.sin(t * f.sp * 2 + f.ph) * 0.18) * W, y = (f.y + Math.sin(t * f.sp * 3.1 + f.ph) * 0.12) * H;
+      var flap = Math.abs(Math.sin(t * 7 + f.ph)) * 0.85 + 0.15, s = 15 * U + 6;
+      ctx.save(); ctx.translate(x, y); ctx.rotate(Math.sin(t * f.sp * 2 + f.ph) * 0.4);
+      ctx.fillStyle = f.c; ctx.globalAlpha = 0.8;
+      [-1, 1].forEach(function (side) {
+        ctx.save(); ctx.scale(side * flap, 1);
+        ctx.beginPath(); ctx.ellipse(s * 0.55, -s * 0.3, s * 0.6, s * 0.42, -0.5, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.ellipse(s * 0.4, s * 0.3, s * 0.38, s * 0.3, 0.6, 0, Math.PI * 2); ctx.fill();
+        ctx.restore();
+      });
+      ctx.fillStyle = '#2a1d14'; ctx.globalAlpha = 1; ctx.fillRect(-s * 0.05, -s * 0.5, s * 0.1, s);
+      ctx.restore();
+    });
+
+    // canvas grain and a deep vignette, like an old varnished painting
+    ctx.fillStyle = ctx.createPattern(grain, 'repeat'); ctx.fillRect(0, 0, W, H);
+    var v = ctx.createRadialGradient(W / 2, H / 2, Math.min(W, H) * 0.3, W / 2, H / 2, Math.max(W, H) * 0.8);
+    v.addColorStop(0, 'rgba(10,9,9,0)'); v.addColorStop(1, 'rgba(5,4,4,.7)');
+    ctx.fillStyle = v; ctx.fillRect(0, 0, W, H);
+
+    if (!reduce) requestAnimationFrame(frame);
+  }
+
+  window.addEventListener('pointermove', function (e) { pointer.tx = e.clientX / W; }, { passive: true });
+  var resizeTimer;
+  window.addEventListener('resize', function () { clearTimeout(resizeTimer); resizeTimer = setTimeout(function () { resize(); if (reduce) frame(9000); }, 150); });
+  if (reduce) window.addEventListener('scroll', function () { frame(9000); }, { passive: true });
+  resize();
+  if (reduce) frame(9000); else requestAnimationFrame(frame);
+})();
 </script>
 </body>
 </html>
