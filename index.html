@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=Mr+Dafoe&display=swap">
 <style>
-/* Layout: a late-night CRT broadcast. Cover-led hero, then cassette J-card tracklist, then a sign-up "transmission". */
+/* Layout: cover-led album hero, then the band, shows and a sign-up. */
 :root {
   --ink: #0c080b;        /* warm black, biased toward the magenta */
   --ink-2: #171016;
@@ -156,18 +156,6 @@ section { padding-block: clamp(4rem, 9vw, 7rem); }
 .h2 { margin: 0 0 2.5rem; font: 900 clamp(2rem, 5vw, 3.4rem)/.95 var(--f-display); font-stretch: 125%; text-transform: uppercase; letter-spacing: -.01em; text-wrap: balance; }
 .h2 em { font: 400 1.25em/1 var(--f-script); color: var(--red); text-transform: none; letter-spacing: 0; margin-right: .1em; }
 
-/* Tracklist as a cassette J-card */
-.jcard { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1.5px solid var(--bone); }
-.side { padding: clamp(1.25rem, 3vw, 2rem); min-width: 0; }
-.side + .side { border-left: 1.5px dashed var(--line); }
-.side h3 { margin: 0 0 1.2rem; display: flex; justify-content: space-between; align-items: baseline; font: 500 0.99rem/1 var(--f-crt); letter-spacing: .08em; color: var(--lilac); text-transform: uppercase; }
-.side h3 span { color: var(--dim); font-size: 1.1rem; }
-.side ol { list-style: none; margin: 0; padding: 0; display: grid; }
-.side li { display: grid; grid-template-columns: 2.2rem minmax(0, 1fr); align-items: baseline; gap: .75rem; padding-block: .75rem; border-bottom: 1px solid var(--line); }
-.side li:last-child { border-bottom: 0; }
-.side .n { font: 500 0.79rem/1 var(--f-crt); color: var(--magenta); }
-.side .name { font-weight: 700; font-stretch: 112%; letter-spacing: .01em; }
-.jcard-foot { grid-column: 1 / -1; border-top: 1.5px solid var(--bone); padding: .8rem clamp(1.25rem, 3vw, 2rem); display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font: 500 0.76rem/1.2 var(--f-crt); color: var(--dim); letter-spacing: .06em; text-transform: uppercase; }
 
 /* About */
 /* Each member: photo, then their own career highlights underneath */
@@ -229,9 +217,7 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
 @media (max-width: 52rem) {
   .hero .wrap, .about .wrap { grid-template-columns: minmax(0, 1fr); }
   .hero .cover { order: -1; max-width: 30rem; }
-  .jcard { grid-template-columns: minmax(0, 1fr); }
   .members { grid-template-columns: minmax(0, 1fr); }
-  .side + .side { border-left: 0; border-top: 1.5px dashed var(--line); }
 }
 @media (max-width: 30rem) {
   .top nav { gap: .9rem; font-size: 1.1rem; }
@@ -250,7 +236,7 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
   <div class="wrap">
     <a class="mark" href="#top" aria-label="Lilac Triggers home"><img class="l" src="assets/lilac-wordmark.png" alt="" width="640" height="504"><span class="t" aria-hidden="true">TRIGGERS</span></a>
     <nav aria-label="Main">
-      <a href="#album">Album</a>
+      <a href="#top">Album</a>
       <a href="#about" class="hide-sm">Band</a>
       <a href="#shows" class="hide-sm">Shows</a>
       <a href="#list">Join</a>
@@ -292,36 +278,6 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
     </div>
   </div>
 
-  <!-- TRACKLIST -->
-  <section id="album">
-    <div class="wrap">
-      <h2 class="h2"><em>the</em>Tracklist</h2>
-      <div class="jcard">
-        <div class="side">
-          <h3>Side A <span>Dusk</span></h3>
-          <ol>
-            <li><span class="n">A1</span><span class="name">Slow Blink</span></li>
-            <li><span class="n">A2</span><span class="name">Devil in Tennessee</span></li>
-            <li><span class="n">A3</span><span class="name">Psycho Killer</span></li>
-            <li><span class="n">A4</span><span class="name">Seventeen</span></li>
-            <li><span class="n">A5</span><span class="name">Ballad of Tory Freeman</span></li>
-            <li><span class="n">A6</span><span class="name">Waiting for the Sun</span></li>
-          </ol>
-        </div>
-        <div class="side">
-          <h3>Side B <span>Dawn</span></h3>
-          <ol>
-            <li><span class="n">B1</span><span class="name">Lonely Grove</span></li>
-            <li><span class="n">B2</span><span class="name">Void</span></li>
-            <li><span class="n">B3</span><span class="name">Trouble Fun</span></li>
-            <li><span class="n">B4</span><span class="name">23 Years</span></li>
-            <li><span class="n">B5</span><span class="name">Craving in the Keepsake</span></li>
-          </ol>
-        </div>
-        <div class="jcard-foot"><span>Type II · Chrome · Dolby NR</span><span>11 tracks</span></div>
-      </div>
-    </div>
-  </section>
 
   <!-- ABOUT -->
   <section id="about" class="about">
