@@ -81,6 +81,12 @@ section { padding-block: clamp(2.5rem, 6vw, 4.5rem); }
 .video .play span::before { content: ""; margin-left: 12%; border-style: solid; border-width: .7rem 0 .7rem 1.15rem; border-color: transparent transparent transparent var(--gold-hi); }
 .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
+/* Tracklist: Roman numerals in the margin, titles in carved capitals, two columns on wide screens */
+.tracks { list-style: none; margin: 0 auto; padding: 0; max-width: 52rem; columns: 2; column-gap: clamp(2rem, 6vw, 4.5rem); }
+.tracks li { break-inside: avoid; display: grid; grid-template-columns: 2.6rem minmax(0, 1fr); align-items: baseline; gap: .8rem; padding-block: .95rem; border-bottom: 1px solid var(--hair); }
+.tracks .no { font: 500 .78rem/1 var(--f-caps); letter-spacing: .14em; color: var(--rose); }
+.tracks .t { font: 400 clamp(1rem, 1.8vw, 1.2rem)/1.3 var(--f-display); letter-spacing: .08em; text-transform: uppercase; }
+
 /* Listen */
 .platforms { list-style: none; margin: 0 auto; padding: 0; max-width: 46rem; border-top: 1px solid var(--hair); }
 .platforms a { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 1.15rem .25rem; border-bottom: 1px solid var(--hair); text-decoration: none; font: 400 clamp(1.1rem, 2.4vw, 1.6rem)/1.1 var(--f-display); letter-spacing: .1em; text-transform: uppercase; transition: color .25s, padding .3s; }
@@ -122,6 +128,7 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
 
 /* ---------- Narrow screens ---------- */
 @media (max-width: 52rem) {
+  .tracks { columns: 1; }
 }
 @media (max-width: 34rem) {
   .top nav a.hide-sm { display: none; }
@@ -143,6 +150,7 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
     <a class="name shade" href="#top">Lilac Triggers</a>
     <nav aria-label="Main">
       <a href="#video" class="hide-sm">Video</a>
+      <a href="#tracks" class="hide-sm">Tracks</a>
       <a href="#music">Listen</a>
       <a href="#band">Band</a>
       <a href="#shows" class="hide-sm">Shows</a>
@@ -175,6 +183,28 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
         <div class="video">
           <div class="play"><span aria-hidden="true"></span><p class="caps">The first video arrives with the album</p></div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRACKLIST -->
+  <section id="tracks">
+    <div class="wrap">
+      <div class="room">
+        <div class="head"><p class="caps">Slow Blink · 11 songs</p><h2>The <i>tracks</i></h2><span class="fleuron" aria-hidden="true">❦</span></div>
+        <ol class="tracks">
+          <li><span class="no">I</span><span class="t">Slow Blink</span></li>
+          <li><span class="no">II</span><span class="t">Devil in Tennessee</span></li>
+          <li><span class="no">III</span><span class="t">Psycho Killer</span></li>
+          <li><span class="no">IV</span><span class="t">Seventeen</span></li>
+          <li><span class="no">V</span><span class="t">Ballad of Tory Freeman</span></li>
+          <li><span class="no">VI</span><span class="t">Waiting for the Sun</span></li>
+          <li><span class="no">VII</span><span class="t">Lonely Grove</span></li>
+          <li><span class="no">VIII</span><span class="t">Void</span></li>
+          <li><span class="no">IX</span><span class="t">Trouble Fun</span></li>
+          <li><span class="no">X</span><span class="t">23 Years</span></li>
+          <li><span class="no">XI</span><span class="t">Craving in the Keepsake</span></li>
+        </ol>
       </div>
     </div>
   </section>
