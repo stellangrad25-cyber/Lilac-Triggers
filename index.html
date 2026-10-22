@@ -313,12 +313,13 @@ document.getElementById('signup-form').addEventListener('submit', function (e) {
    layered petals with brush striations, lit from the upper left, muted and given canvas tooth. Each frame those
    sprites are arranged in two overflowing bouquets in front of a black backdrop and faint checkered floor. Bouquets sway
    from their stems, heads breathe and turn, tendrils curl and dark petals fall. A red oscilloscope trace
-   pulses across the top of the page. */
+   pulses across the top of the page, and the Mad Hatter's tea party (hat, teacup, a watch stopped at six,
+   falling playing cards) is scattered through the scene. */
 (function () {
   var cvs = document.getElementById('bloom');
   var ctx = cvs.getContext('2d');
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var W, H, U, DPR, sprites, bouquets, layers, overlay, petals, tendrils, lightMask, backdrop, grain, tooth;
+  var W, H, U, DPR, sprites, bouquets, layers, overlay, petals, cards, tendrils, lightMask, backdrop, grain, tooth;
   var pointer = { x: 0.5, tx: 0.5 };
 
   function rng(seed) { return function () { seed |= 0; seed = seed + 0x6D2B79F5 | 0; var t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
@@ -594,6 +595,95 @@ document.getElementById('signup-form').addEventListener('submit', function (e) {
   }
 
 
+  // Mad Hatter's top hat: tall tapered crown, wide brim, blood-red band, the "10/6" card tucked in
+  function paintHat(size) {
+    var r = size * DPR;
+    return sprite(r * 2.6, r * 2.6, function (g, w, h) {
+      var cx = w / 2, brimY = h * 0.84, crownTop = h * 0.3, topW = r * 0.72, botW = r * 0.5;
+      // brim underside shadow
+      g.fillStyle = '#020203';
+      g.beginPath(); g.ellipse(cx, brimY + r * 0.06, r * 1.18, r * 0.24, 0, 0, Math.PI * 2); g.fill();
+      // brim
+      var brim = g.createLinearGradient(cx - r * 1.2, 0, cx + r * 1.2, 0);
+      brim.addColorStop(0, '#0a0a0c'); brim.addColorStop(0.35, '#2c2c32'); brim.addColorStop(1, '#060607');
+      g.fillStyle = brim;
+      g.beginPath(); g.ellipse(cx, brimY, r * 1.15, r * 0.22, 0, 0, Math.PI * 2); g.fill();
+      // crown, flaring slightly toward the top
+      var crown = g.createLinearGradient(cx - topW, 0, cx + topW, 0);
+      crown.addColorStop(0, '#060607'); crown.addColorStop(0.3, '#34343a'); crown.addColorStop(0.45, '#1c1c20'); crown.addColorStop(1, '#040405');
+      g.fillStyle = crown;
+      g.beginPath(); g.moveTo(cx - botW, brimY); g.lineTo(cx - topW, crownTop); g.lineTo(cx + topW, crownTop); g.lineTo(cx + botW, brimY); g.closePath(); g.fill();
+      g.beginPath(); g.ellipse(cx, brimY, botW, r * 0.1, 0, 0, Math.PI); g.fill();
+      // crown top
+      g.fillStyle = '#26262b'; g.beginPath(); g.ellipse(cx, crownTop, topW, r * 0.13, 0, 0, Math.PI * 2); g.fill();
+      // band
+      var bandTop = brimY - r * 0.42, bandBot = brimY - r * 0.12;
+      var wAt = function (y) { return botW + (topW - botW) * (brimY - y) / (brimY - crownTop); };
+      var band = g.createLinearGradient(cx - topW, 0, cx + topW, 0);
+      band.addColorStop(0, '#2a0508'); band.addColorStop(0.3, '#8e1b26'); band.addColorStop(1, '#1a0305');
+      g.fillStyle = band;
+      g.beginPath(); g.moveTo(cx - wAt(bandBot), bandBot); g.lineTo(cx - wAt(bandTop), bandTop); g.lineTo(cx + wAt(bandTop), bandTop); g.lineTo(cx + wAt(bandBot), bandBot); g.closePath(); g.fill();
+      // the price card, tilted in the band
+      g.save(); g.translate(cx + wAt(bandTop) * 0.45, bandTop - r * 0.12); g.rotate(0.22);
+      var cw = r * 0.42, ch = r * 0.3;
+      g.fillStyle = '#d9d2c3'; g.fillRect(-cw / 2, -ch / 2, cw, ch);
+      g.strokeStyle = 'rgba(40,30,20,.5)'; g.lineWidth = Math.max(1, r * 0.01); g.strokeRect(-cw / 2 + r * 0.02, -ch / 2 + r * 0.02, cw - r * 0.04, ch - r * 0.04);
+      g.fillStyle = '#1a1410'; g.font = '600 ' + Math.round(r * 0.15) + 'px Georgia, serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
+      g.fillText('10/6', 0, r * 0.01);
+      g.restore();
+      // sheen along the crown
+      g.strokeStyle = 'rgba(200,206,220,.12)'; g.lineWidth = Math.max(1, r * 0.03);
+      g.beginPath(); g.moveTo(cx - botW * 0.55, brimY - r * 0.45); g.lineTo(cx - topW * 0.55, crownTop + r * 0.12); g.stroke();
+      g.setTransform(1, 0, 0, 1, 0, 0);
+      varnish(g, w, h, 0.1, 0.55);
+    });
+  }
+
+  // A tipped teacup on its saucer, spilling tea across the floor
+  function paintTeacup(size) {
+    var r = size * DPR;
+    return sprite(r * 3, r * 1.9, function (g, w, h) {
+      var cx = w * 0.4, base = h * 0.78;
+      // spill
+      var spill = g.createRadialGradient(w * 0.68, base + r * 0.12, 0, w * 0.68, base + r * 0.12, r * 1.1);
+      spill.addColorStop(0, 'rgba(60,24,10,.85)'); spill.addColorStop(1, 'rgba(30,12,5,0)');
+      g.fillStyle = spill; g.beginPath(); g.ellipse(w * 0.68, base + r * 0.12, r * 1.1, r * 0.22, 0, 0, Math.PI * 2); g.fill();
+      // saucer
+      var sau = g.createLinearGradient(0, base - r * 0.1, 0, base + r * 0.2);
+      sau.addColorStop(0, '#d8d2c6'); sau.addColorStop(1, '#3a3632');
+      g.fillStyle = sau; g.beginPath(); g.ellipse(cx, base + r * 0.06, r * 0.9, r * 0.2, 0, 0, Math.PI * 2); g.fill();
+      g.strokeStyle = '#8e1b26'; g.lineWidth = Math.max(1, r * 0.03);
+      g.beginPath(); g.ellipse(cx, base + r * 0.04, r * 0.84, r * 0.17, 0, 0, Math.PI * 2); g.stroke();
+      // cup on its side, mouth toward the spill
+      g.save(); g.translate(cx + r * 0.25, base - r * 0.32); g.rotate(-1.35);
+      var cup = g.createLinearGradient(-r * 0.5, 0, r * 0.5, 0);
+      cup.addColorStop(0, '#f0ebe1'); cup.addColorStop(0.55, '#9a948a'); cup.addColorStop(1, '#2a2724');
+      g.fillStyle = cup;
+      g.beginPath(); g.moveTo(-r * 0.52, -r * 0.4); g.bezierCurveTo(-r * 0.5, r * 0.25, -r * 0.3, r * 0.45, 0, r * 0.46); g.bezierCurveTo(r * 0.3, r * 0.45, r * 0.5, r * 0.25, r * 0.52, -r * 0.4); g.closePath(); g.fill();
+      g.fillStyle = '#2a120a'; g.beginPath(); g.ellipse(0, -r * 0.4, r * 0.52, r * 0.13, 0, 0, Math.PI * 2); g.fill();
+      g.strokeStyle = '#8e1b26'; g.lineWidth = Math.max(1, r * 0.035); g.beginPath(); g.ellipse(0, -r * 0.4, r * 0.52, r * 0.13, 0, 0, Math.PI * 2); g.stroke();
+      g.strokeStyle = '#bdb6aa'; g.lineWidth = Math.max(2, r * 0.07);
+      g.beginPath(); g.arc(r * 0.55, -r * 0.02, r * 0.2, -1.2, 1.4); g.stroke();
+      g.restore();
+      g.setTransform(1, 0, 0, 1, 0, 0);
+      varnish(g, w, h, 0.08, 0.6);
+    });
+  }
+
+  // A playing card for the falling flurry
+  function paintCard(size, suit) {
+    var r = size * DPR;
+    return sprite(r * 0.75, r, function (g, w, h) {
+      g.fillStyle = '#cfc8ba'; g.fillRect(0, 0, w, h);
+      g.strokeStyle = 'rgba(30,25,20,.6)'; g.lineWidth = Math.max(1, r * 0.02); g.strokeRect(r * 0.04, r * 0.04, w - r * 0.08, h - r * 0.08);
+      g.fillStyle = suit === '♥' ? '#8e1b26' : '#111';
+      g.font = Math.round(r * 0.5) + 'px Georgia, serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
+      g.fillText(suit, w / 2, h / 2 + r * 0.03);
+      g.font = Math.round(r * 0.16) + 'px Georgia, serif'; g.fillText(suit, r * 0.12, r * 0.13);
+      varnish(g, w, h, 0.05, 0.45);
+    });
+  }
+
   function build() {
     R = rng(1702);
     U = Math.max(0.6, Math.min(W * 0.95, H * 1.25) / 640);
@@ -625,6 +715,11 @@ document.getElementById('signup-form').addEventListener('submit', function (e) {
       lace: paintLace(70 * U),
       leafDark: paintLeaf(115 * U, dark, false), leafSage: paintLeaf(90 * U, sage, true), leafOlive: paintLeaf(100 * U, olive, true)
     };
+    sprites.hat = paintHat(52 * U);
+    sprites.teacup = paintTeacup(34 * U);
+    sprites.cards = ['\u2660', '\u2665', '\u2660', '\u2665'].map(function (s) { return paintCard(26 * U, s); });
+    cards = [];
+    for (var cc = 0; cc < 5; cc++) cards.push({ x: R(), y: R(), v: 0.012 + R() * 0.016, rot: R() * 6, vr: (R() - 0.5) * 1.2, k: cc % 4, sway: R() * 6 });
     sprites.petals = [PAL.blush, PAL.crimson, PAL.coral, PAL.candy, PAL.blush].map(function (p) { return paintPetal(18 * U, p); });
 
     // Bouquet A spills up from the lower left; bouquet B hangs from the upper right. Positions are fractions of the screen.
@@ -760,6 +855,45 @@ document.getElementById('signup-form').addEventListener('submit', function (e) {
     ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalCompositeOperation = 'multiply';
     ctx.drawImage(lightMask, 0, 0);
     ctx.restore();
+
+    // the tea party on the floor: a top hat and a tipped teacup, lower right
+    var fy = H * 0.985 - sy * 0.03, hx = W * (W < 700 ? 0.8 : 0.9);
+    var hs = sprites.hat, hw = hs.width / DPR, hh = hs.height / DPR;
+    var ts = sprites.teacup, tw = ts.width / DPR, th = ts.height / DPR;
+    ctx.drawImage(hs, hx - hw / 2, fy - hh, hw, hh);
+    ctx.drawImage(ts, hx - tw * 0.55, fy - th * 0.62, tw, th);
+
+    // a pocket watch swinging on its chain from the upper bouquet, stopped at six: always tea time
+    var ax = W * (W < 700 ? 0.86 : 0.9), ay = H * 0.4, chain = H * (W < 700 ? 0.16 : 0.2);
+    var swing = Math.sin(t * 1.1) * 0.16;
+    var wx = ax + Math.sin(swing) * chain, wy = ay + Math.cos(swing) * chain, wr = 30 * U;
+    ctx.save();
+    ctx.strokeStyle = 'rgba(150,150,158,.75)'; ctx.lineWidth = Math.max(1, 1.6 * U); ctx.setLineDash([3 * U, 2 * U]);
+    ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(wx, wy - wr * 1.15); ctx.stroke(); ctx.setLineDash([]);
+    ctx.translate(wx, wy); ctx.rotate(swing * 0.6);
+    var caseG = ctx.createLinearGradient(-wr, -wr, wr, wr);
+    caseG.addColorStop(0, '#e2e2e8'); caseG.addColorStop(0.5, '#6e6e76'); caseG.addColorStop(1, '#1e1e22');
+    ctx.fillStyle = caseG;
+    ctx.beginPath(); ctx.arc(0, 0, wr * 1.1, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(0, -wr * 1.15, wr * 0.16, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#d6cfbf'; ctx.beginPath(); ctx.arc(0, 0, wr * 0.92, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = '#1a1612'; ctx.lineCap = 'round';
+    for (var k = 0; k < 12; k++) { var a = k / 12 * Math.PI * 2; ctx.lineWidth = k % 3 ? 1 : 2; ctx.beginPath(); ctx.moveTo(Math.sin(a) * wr * 0.72, -Math.cos(a) * wr * 0.72); ctx.lineTo(Math.sin(a) * wr * 0.84, -Math.cos(a) * wr * 0.84); ctx.stroke(); }
+    ctx.lineWidth = Math.max(1.5, 2.2 * U); ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(0, wr * 0.62); ctx.stroke();   // hour hand on six
+    ctx.lineWidth = Math.max(1, 1.4 * U); ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(0, -wr * 0.78); ctx.stroke();  // minute hand on twelve
+    var sec = Math.floor(t) % 60 / 60 * Math.PI * 2;                                                                     // only the second hand still ticks
+    ctx.strokeStyle = '#8e1b26'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(Math.sin(sec) * wr * 0.8, -Math.cos(sec) * wr * 0.8); ctx.stroke();
+    ctx.fillStyle = '#1a1612'; ctx.beginPath(); ctx.arc(0, 0, wr * 0.06, 0, Math.PI * 2); ctx.fill();
+    ctx.restore();
+
+    // playing cards drifting down
+    cards.forEach(function (c) {
+      if (!reduce) { c.y += c.v * 0.032; c.rot += c.vr * 0.032; if (c.y > 1.1) { c.y = -0.1; c.x = Math.random(); } }
+      var x = c.x * W + Math.sin(t * 0.5 + c.sway) * 60, y = c.y * H;
+      ctx.save(); ctx.globalAlpha = 0.45; ctx.translate(x, y); ctx.rotate(c.rot); ctx.scale(Math.abs(Math.cos(t * 0.6 + c.sway)) * 0.75 + 0.25, 1);
+      var s = sprites.cards[c.k], w = s.width / DPR, hgt = s.height / DPR; ctx.drawImage(s, -w / 2, -hgt / 2, w, hgt);
+      ctx.restore();
+    });
 
     // falling petals
     petals.forEach(function (p) {
